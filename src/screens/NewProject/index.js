@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class NewProjectScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'New'
+  });
+
   render() {
     return (
       <View style={styles.container}>

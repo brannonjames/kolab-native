@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class EditProjectScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Edit'
+  });
+  
   render() {
     return (
       <View style={styles.container}>

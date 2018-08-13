@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import styles from './style';
 
 export default class AuthScreen extends Component {
@@ -7,6 +7,10 @@ export default class AuthScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>Auth Screen</Text>
+        <Button 
+          title="login"
+          onPress={() => this.props.navigation.navigate('app')}
+        />
       </View>
     );
   }
