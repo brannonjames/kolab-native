@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import AuthScreen from './src/screens/Auth';
-
-export default class App extends React.Component {
+export default class ProjectDetailsScreen extends Component {
   render() {
-    return <AuthScreen />;
+    return (
+      <View style={styles.container}>
+        <Text>Project Details Screen</Text>
+      </View>
+    );
   }
 }
 
