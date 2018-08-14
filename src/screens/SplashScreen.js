@@ -11,10 +11,10 @@ class SplashScreen extends Component {
   async componentDidMount() {
     const { navigation, getCurrentUser } = this.props;
 
-    let token = await SecureStore.getItemAsync('token');
+    // let token = await SecureStore.getItemAsync('token');
 
     // this is for development only so I can test the auth routes
-    // let token = await SecureStore.deleteItemAsync('token');
+    let token = await SecureStore.deleteItemAsync('token');
 
     if (token) {
 

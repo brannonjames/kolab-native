@@ -10,4 +10,10 @@ export default createStackNavigator({
   splash: SplashScreen,
   main_stack: mainStack,
   modals: modals
-}, { mode: 'modal',  headerMode: 'none'});
+}, {
+  mode: 'modal',
+  headerMode: 'none',
+  navigationOptions: {
+    gesturesEnabled: false
+  }
+});

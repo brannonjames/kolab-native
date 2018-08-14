@@ -12,3 +12,9 @@ export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 export const USER_LOGOUT_FAIL = 'USER_LOGOUT_FAIL';
 
 export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
+
+// swipe screen project action types
+
+export const LOAD_SWIPE_PROJECTS = 'LOAD_PROJECTS';
+export const LOAD_SWIPE_PROJECTS_SUCCESS = 'LOAD_PROJECTS_SUCCESS';
+export const LOAD_SWIPE_PROJECTS_FAIL = 'LOAD_PROJECTS_FAIL';
