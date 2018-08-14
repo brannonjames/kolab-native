@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, KeyboardAvoidingView } from 'react-native';
+import { View, Text } from 'react-native';
+import Loader from './Loader';
 import Button from './Button';
 
-export default ({ authType, onSubmit, toggleAuth }) => {
+export default ({ authType, onSubmit, toggleAuth, isLoading }) => {
   return (
-    <View style={styles.container} behavior="padding">
-      <Button 
-        title={authType}
-        onPress={onSubmit}
-      />
+    <View style={styles.container}>
+      <Button onPress={onSubmit} title={authType}>
+        { isLoading &&
+          <Loader />
+        }
+      </Button>
 
       <Text style={styles.buttonSeperator}>-or-</Text>
 
