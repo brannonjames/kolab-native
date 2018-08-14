@@ -39,6 +39,10 @@ class AuthScreen extends Component {
 
   handleSubmit = async () => {
     await this.props.loginUser(this.state.form);
+    
+    if (this.props.state.user) {
+      this.props.navigation.navigate('app');
+    }
   }
 
 

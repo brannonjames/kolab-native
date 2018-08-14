@@ -7,15 +7,15 @@ const initialState = {
 
 export default (state=initialState, action) => {
   switch(action.type) {
-
+    
     case USER.LOGIN:
     case USER.RESISTER:
     case USER.LOGOUT:
       return { error: null, isLoading: true };
 
-    case USER.LOGIN_SUCEESS:
-    case USER.RESISTER_SUCEESS:
-    case USER.LOGOUT_SUCEESS:
+    case USER.LOGIN_SUCCESS:
+    case USER.RESISTER_SUCCESS:
+    case USER.LOGOUT_SUCCESS:
       return { error: null, isLoading: false };
 
 

@@ -1,21 +1,27 @@
 import { USER } from './types';
-import axios from 'axios';
+import apiCall from '../../services/apiCall';
 
-export const loginUser = ({ email, password }) => async dispatch => {
+export const loginUser = user => async dispatch => {
   try {
 
-      let response = await axios.get({
-        url: 'http://localhost:3060/api/projects'
+      dispatch({ type: USER.LOGIN })
+
+      let newUser = await apiCall({
+        url: '/users/login',
+        method: 'post',
+        data: user
       });
 
-      console.log(response, 'good');
+      dispatch({
+        type: USER.LOGIN_SUCCESS,
+        payload: newUser
+      });
 
   } catch (err) {
 
-    console.log(err);
     dispatch({
       type: USER.LOGIN_FAIL,
-      error: err.message
+      error: err.message || 'unknown error occured'
     });
 
   }
