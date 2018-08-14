@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/auth';
-import Main from '../../components/Main';
-import AuthForm from '../../components/AuthForm';
-import AuthButtonView from '../../components/AuthButtonView';
-import ErrorMsg from '../../components/ErrorMsg';
+import * as actions from '../store/actions/auth';
+import Main from '../components/Main';
+import AuthForm from '../components/AuthForm';
+import AuthButtonView from '../components/AuthButtonView';
+import ErrorMsg from '../components/ErrorMsg';
 
-import styles from './style';
 
 class AuthScreen extends Component {
 
@@ -94,6 +93,14 @@ class AuthScreen extends Component {
     );
   }
 }
+
+const styles = {
+  authHeaderStyle: {
+    fontSize: 40,
+    marginTop: 52,
+    fontWeight: 'bold'
+  }
+};
 
 const mapDispatchToProps = ({ user, auth }) => ({
   user,
