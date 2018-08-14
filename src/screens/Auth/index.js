@@ -5,6 +5,7 @@ import * as actions from '../../store/actions/auth';
 import Main from '../../components/Main';
 import AuthForm from '../../components/AuthForm';
 import AuthButtonView from '../../components/AuthButtonView';
+import ErrorMsg from '../../components/ErrorMsg';
 
 import styles from './style';
 
@@ -22,6 +23,9 @@ class AuthScreen extends Component {
 
   toggleAuth = () => {
     const { authType } = this.state;
+
+    this.props.clearAuthError();
+
     this.setState({
       authType: authType === 'Sign Up' ? 'Login' : 'Sign Up'
     });
@@ -38,10 +42,23 @@ class AuthScreen extends Component {
   }
 
   handleSubmit = async () => {
-    await this.props.loginUser(this.state.form);
-    
-    if (this.props.state.user) {
-      this.props.navigation.navigate('app');
+    try {
+
+      const { authType, form } = this.state;
+      const { loginUser, signupUser, navigation } = this.props;
+  
+      if (authType === 'Login') {
+        await loginUser(form);
+        navigation.navigate('app');
+      }
+  
+      if (authType === 'Sign Up') {
+        await signupUser(form);
+        this.toggleAuth();
+      }
+
+    } catch (err) {
+
     }
   }
 
@@ -49,12 +66,16 @@ class AuthScreen extends Component {
   render() {
     const { authHeaderStyle } = styles;
     const { authType } = this.state;
+    const { isLoading, error } = this.props;
+
     return (
       <Main>
 
         <Text style={authHeaderStyle}>
           {authType}
         </Text>
+
+        <ErrorMsg error={error} />
 
         <AuthForm 
           authType={authType} 
@@ -66,6 +87,7 @@ class AuthScreen extends Component {
           authType={this.state.authType} 
           onSubmit={this.handleSubmit}
           toggleAuth={this.toggleAuth}
+          isLoading={isLoading}
         />
 
       </Main>
@@ -73,8 +95,10 @@ class AuthScreen extends Component {
   }
 }
 
-const mapDispatchToProps = state => ({
-  state
+const mapDispatchToProps = ({ user, auth }) => ({
+  user,
+  isLoading: auth.isLoading,
+  error: auth.error
 })
 
 export default connect(mapDispatchToProps, actions)(AuthScreen);
