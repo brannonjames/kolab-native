@@ -6,10 +6,5 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  authHeaderStyle: {
-    fontSize: 40,
-    marginTop: 52,
-    fontWeight: 'bold'
   }
 });
