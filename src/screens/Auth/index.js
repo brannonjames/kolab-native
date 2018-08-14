@@ -4,14 +4,19 @@ import Main from '../../components/Main';
 import Button from '../../components/Button';
 import AuthForm from '../../components/AuthForm';
 import AuthButtonView from '../../components/AuthButtonView';
-import Input from '../../components/Input';
 
 import styles from './style';
 
 export default class AuthScreen extends Component {
 
   state = {
-    authType: 'Sign Up'
+    authType: 'Sign Up',
+    form: {
+      username: '',
+      email: '',
+      password: '',
+      confirm: ''
+    }
   }
 
   toggleAuth = () => {
@@ -21,31 +26,16 @@ export default class AuthScreen extends Component {
     });
   }
 
-  renderAuthForm() {
-    const { authType } = this.state;
-    return (
-      <AuthForm>
-        { authType === 'Sign Up' &&
-          <Input 
-            placeholder="username"
-          />
-        }
-
-        <Input 
-          placeholder="email"
-        />
-        <Input 
-          placeholder="password"
-        />
-
-        { authType === 'Sign Up' &&
-          <Input 
-            placeholder="confirm"
-          />
-        }
-    </AuthForm>
-    )
+  handleChange = name => text => {
+    this.setState({
+      ...this.state,
+      form: {
+        ...this.state.form,
+        [name]: text
+      }
+    });
   }
+
 
   render() {
     const { authHeaderStyle } = styles;
@@ -57,7 +47,11 @@ export default class AuthScreen extends Component {
           {authType}
         </Text>
 
-      { this.renderAuthForm() }
+        <AuthForm 
+          authType={authType} 
+          onChange={this.handleChange}
+          formValues={this.state.form}
+        />
 
         <AuthButtonView 
           authType={this.state.authType} 
