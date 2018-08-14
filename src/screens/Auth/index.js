@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Text, LayoutAnimation } from 'react-native';
+import { Text } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/auth';
 import Main from '../../components/Main';
-import Button from '../../components/Button';
 import AuthForm from '../../components/AuthForm';
 import AuthButtonView from '../../components/AuthButtonView';
 
 import styles from './style';
 
-export default class AuthScreen extends Component {
+class AuthScreen extends Component {
 
   state = {
     authType: 'Sign Up',
@@ -36,6 +37,10 @@ export default class AuthScreen extends Component {
     });
   }
 
+  handleSubmit = async () => {
+    await this.props.loginUser(this.state.form);
+  }
+
 
   render() {
     const { authHeaderStyle } = styles;
@@ -55,7 +60,7 @@ export default class AuthScreen extends Component {
 
         <AuthButtonView 
           authType={this.state.authType} 
-          onSubmit={() => {}}
+          onSubmit={this.handleSubmit}
           toggleAuth={this.toggleAuth}
         />
 
@@ -63,3 +68,9 @@ export default class AuthScreen extends Component {
     );
   }
 }
+
+const mapDispatchToProps = state => ({
+  state
+})
+
+export default connect(mapDispatchToProps, actions)(AuthScreen);
