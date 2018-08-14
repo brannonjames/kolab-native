@@ -1,4 +1,5 @@
 import apiCall from '../../services/apiCall';
+import { SecureStore } from 'expo';
 
 import { 
   CLEAR_AUTH_ERROR,
@@ -30,6 +31,8 @@ export const loginUser = userInfo => async dispatch => {
         method: 'post',
         data: userInfo
       });
+
+      await SecureStore.setItemAsync('token', user.token);
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
