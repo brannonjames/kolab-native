@@ -5,28 +5,35 @@ const COLORS = ['#80CED7', '#DC493A', '#84DCC6', '#ACD7EC', '#8B95C9'];
 
 class TechList extends Component {
 
+  state = {
+    data: [],
+    technologies: []
+  }
+
   pickRandomColor() {
     const rand = Math.floor(Math.random() * COLORS.length);
     return COLORS[rand];
   }
 
-  renderTechnologies() {
-    return this.props.data.map((tech, i) => (
+  componentDidMount() {
+    const technologies = this.props.data.map((tech, i) => (
       <View 
-      key={i} 
-      style={[styles.techStyle, { backgroundColor: this.pickRandomColor() }]}
-      >
-        <Text style={styles.techTextStyle}>{tech}</Text>
-      </View>
+          key={i} 
+          style={[styles.techStyle, { backgroundColor: this.pickRandomColor() }]}
+        >
+          <Text style={styles.techTextStyle}>{tech}</Text>
+        </View>
     ));
-  }
+    this.setState({ technologies });
+  }    
+    
 
   render() {
     return (
       <View style={styles.techContainerStyle}>
         <Text style={styles.techHeaderStyle}>Technologies Used</Text>
         <View style={styles.techList}>
-          {this.renderTechnologies()}
+          {this.state.technologies}
         </View>
       </View>
     );
