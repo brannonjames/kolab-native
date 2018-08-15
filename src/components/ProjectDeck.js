@@ -14,6 +14,7 @@ import {
 import ProjectCard from './ProjectCard';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.2;
 
 class ProjectDeck extends Component {
@@ -29,7 +30,6 @@ class ProjectDeck extends Component {
 
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
-        console.log(gesture.dy);
         this.position.setValue({ x: gesture.dx, y: gesture.dy });
 
       },
@@ -99,7 +99,11 @@ class ProjectDeck extends Component {
   renderCards() {
 
     if (this.state.index >= this.props.data.length) {
-      return <Text>No More Cards</Text>
+      return (
+        <Animated.View style={styles.cardStyle}>
+          <ProjectCard title="No More Projects" description="Try creating one!"  />
+        </Animated.View>
+      )
     }
 
     return this.props.data.map((project, i) => {
@@ -142,13 +146,15 @@ class ProjectDeck extends Component {
 
 const styles = {
   container: {
-    flex: 1
+    flex: 1,
+    position: 'relative'
   },
   cardStyle: {
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,
+    // screen height -  (margin + header + tabbar - statusbar)
+    // status bar is 44 on iPhone X
+    height: SCREEN_HEIGHT - (40 + 43.5 + 48.5 - 20)
   }
 }
 

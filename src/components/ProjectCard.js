@@ -30,9 +30,7 @@ class ProjectCard extends Component {
 const styles = {
   container: {
     margin: 20,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
+    flex: 1,
     borderRadius: 6,
   },
   detailsViewStyle: {

@@ -4,6 +4,7 @@ import { View, Text } from 'react-native';
 const COLORS = ['#80CED7', '#DC493A', '#84DCC6', '#ACD7EC', '#8B95C9'];
 
 class TechList extends Component {
+  static defaultProps = { data: [] }
 
   state = {
     data: [],

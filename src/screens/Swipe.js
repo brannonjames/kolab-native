@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { loadProjects } from '../store/actions/swipe';
+import { loadProjects, likeProject, rejectProject } from '../store/actions/swipe';
 
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
@@ -11,6 +11,14 @@ class SwipeScreen extends Component {
   
   async componentDidMount() {
     await this.props.loadProjects();
+  }
+
+  handleSwipeRight = project => {
+    this.props.likeProject(project);
+  }
+
+  handleSwipeLeft = project => {
+    this.props.rejectProject(project);
   }
 
   render() {
@@ -26,7 +34,11 @@ class SwipeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <ProjectDeck data={projects} />
+        <ProjectDeck 
+          data={projects} 
+          onSwipeLeft={this.handleSwipeLeft}
+          onSwipeRight={this.handleSwipeRight}
+        />
       </View>
     );
   }
@@ -45,4 +57,4 @@ const mapStateToProps = ({ swipe }) => ({
   error: swipe.error
 });
 
-export default connect(mapStateToProps, { loadProjects })(SwipeScreen);
+export default connect(mapStateToProps, { loadProjects, likeProject, rejectProject })(SwipeScreen);

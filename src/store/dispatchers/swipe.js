@@ -1,7 +1,15 @@
 import {
   LOAD_SWIPE_PROJECTS,
   LOAD_SWIPE_PROJECTS_SUCCESS,
-  LOAD_SWIPE_PROJECTS_FAIL
+  LOAD_SWIPE_PROJECTS_FAIL,
+
+  LIKE_PROJECT,
+  LIKE_PROJECT_SUCCESS,
+  LIKE_PROJECT_FAIL,
+
+  REJECT_PROJECT,
+  REJECT_PROJECT_SUCCESS,
+  REJECT_PROJECT_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +26,12 @@ export default (state=initialState, action) => {
       return { projects: action.payload, isLoading: false, error: null  } 
     case LOAD_SWIPE_PROJECTS_FAIL:
       return { projects: [], isLoading: false, error: action.error }
+
+    case LIKE_PROJECT_SUCCESS:
+    case REJECT_PROJECT_SUCCESS:
+      const projects = state.projects.filter(project => project.id !== action.payload);
+      return { ...this.state, projects }
+
     default:
       return state;     
   }
