@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { loadUserProjects } from '../store/actions/projects';
+import { connect } from 'react-redux';
 
-export default class ProjectsScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Projects',
-    headerRight: <Button title="Chat" onPress={() => navigation.navigate('chat')} />
-  });
+class ProjectsScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({ title: 'Projects' });
+
+  componentDidMount() {
+    // this.props.loadUserProjects();
+  }
 
 
   render() {
@@ -25,3 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+// export default connect(null, { loadUserProjects })(ProjectsScreen);
+export default ProjectsScreen;

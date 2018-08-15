@@ -29,5 +29,6 @@ export default createStackNavigator({
     navigationOptions: {
       tabBarVisible: false,
       gesturesEnabled: false
-    }
+    },
+    animationEnabled: 'false'
 });

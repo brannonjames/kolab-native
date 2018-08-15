@@ -6,6 +6,8 @@ import SplashScreen from '../screens/SplashScreen';
 import { createStackNavigator } from 'react-navigation';
 
 // bringing everything together and exporting
+
+
 export default createStackNavigator({
   splash: SplashScreen,
   main_stack: mainStack,
