@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import TechList from './TechList';
+import ProjectDescription from './ProjectDescription';
 
 class ProjectCard extends Component {
 
-  renderTechnologies() {
-    return this.props.technologies.map((tech, i) => (
-      <View key={i} style={styles.techStyle}>
-        <Text style={styles.techTextStyle}>{tech}</Text>
-      </View>
-    ));
-  }
-
   render() {
-    const { title, technologies, description } = this.props;
-    const { container, titleContainerStyle, titleTextStyle, techContainerStyle } = styles;
+    const { title, description, technologies } = this.props;
+    const { container, titleContainerStyle, titleTextStyle, detailsViewStyle } = styles;
     return (
       <View style={container}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flex: 1 }}>
 
           <View style={titleContainerStyle}>
             <Text style={titleTextStyle}>{title}</Text>
           </View>
 
-          <View style={techContainerStyle}>
-            { this.renderTechnologies() }
-          </View>
-
-          <View>
-            <Text>{description}</Text>
+          <View style={detailsViewStyle}>
+            <TechList data={technologies} />
+            <ProjectDescription text={description} />
           </View>
 
         </ScrollView>
@@ -39,35 +30,39 @@ class ProjectCard extends Component {
 const styles = {
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#E7ECEF',
+    backgroundColor:  '#D1D1D1',
     margin: 20,
-    padding: 20,
     borderRadius: 6,
     shadowOffset: { width: 1, height: 2 },
     shadowColor: '#000',
     shadowOpacity: 0.2
   },
+  detailsViewStyle: {
+    backgroundColor: '#E8F1F2',
+    flex: 1,
+    alignItems: 'center',
+    shadowOffset: { width: 0, height: -4 },
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    borderBottomRightRadius: 6,
+    borderBottomLeftRadius: 6
+  },
   titleContainerStyle: {
-    marginBottom: 20
+    backgroundColor: '#8380B6',
+    alignSelf: 'stretch',
+    padding: 18,
+    borderTopRightRadius: 6,
+    borderTopLeftRadius: 6
   },
   titleTextStyle: {
     fontSize: 52,
-    textAlign: 'center'
-  },
-  techContainerStyle: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginBottom: 20
-  },
-  techStyle: {
-    borderWidth: 1,
-    borderColor: '#000',
-    margin: 2,
-    padding: 6
-  },
-  techTextStyle: {
-    fontSize: 18
+    textAlign: 'center',
+    color: '#eee',
+    fontWeight: 'bold',
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: '#eee',
+    shadowOpacity: 0.2
+
   }
 }
 

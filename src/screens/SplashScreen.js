@@ -19,7 +19,7 @@ class SplashScreen extends Component {
     let token = await SecureStore.getItemAsync('token');
 
     // this is for development only so I can test the auth routes
-    let token = await SecureStore.deleteItemAsync('token');
+    // let token = await SecureStore.deleteItemAsync('token');
 
     if (token) {
       // if a token is in device storage, hurray! You're authenticated,
