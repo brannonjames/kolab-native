@@ -14,13 +14,9 @@ class SplashScreen extends Component {
   async componentDidMount() {
     const { navigation, getCurrentUser } = this.props;
 
-<<<<<<< HEAD
-    // let token = await SecureStore.getItemAsync('token');
-=======
     // gets the item from a secure storage locker on the device
     // expo handles all the security stuff behind the scenes
     let token = await SecureStore.getItemAsync('token');
->>>>>>> master
 
     // this is for development only so I can test the auth routes
     let token = await SecureStore.deleteItemAsync('token');
