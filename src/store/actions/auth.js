@@ -32,6 +32,8 @@ export const loginUser = userInfo => async dispatch => {
         data: userInfo
       });
 
+      // sets the users token to device storage so the user can
+      // be authorized when the app refreshes
       await SecureStore.setItemAsync('token', user.token);
 
       dispatch({

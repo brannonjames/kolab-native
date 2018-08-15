@@ -20,6 +20,8 @@ class AuthScreen extends Component {
     }
   }
 
+  // this is what's responsible for toggling between
+  // login and sign up views
   toggleAuth = () => {
     const { authType } = this.state;
 
@@ -57,7 +59,9 @@ class AuthScreen extends Component {
       }
 
     } catch (err) {
-
+      // any errors will be handles within redux
+      // so I don't need anything here
+      return false;
     }
   }
 
