@@ -19,6 +19,9 @@ const initialState = {
 export default (state=initialState, action) => {
   switch(action.type) {
     
+    // you can stack cases ontop of each other like this
+    // if you need multiple to return the same thing apparently
+    // super cool
     case USER_LOGIN:
     case USER_SIGNUP:
     case USER_LOGOUT:
