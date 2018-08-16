@@ -4,6 +4,8 @@ import SwipeNavigation from './nav_screens/swipe';
 import ProjectsNavigation from './nav_screens/projects';
 import AccountNavigation from './nav_screens/account';
 
+import ChatScreen from '../screens/Chat';
+
 // navigation bar for the three main views you see after logging in
 const appTabs = createBottomTabNavigator({
   swipe: {
@@ -23,7 +25,8 @@ const appTabs = createBottomTabNavigator({
 // app navigation bundles with seperate auth view
 export default createStackNavigator({
   auth: AuthScreen,
-  app: appTabs
+  app: appTabs,
+  chat: createStackNavigator({ chat: ChatScreen })
 }, {
     headerMode: 'none',
     navigationOptions: {

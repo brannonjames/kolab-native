@@ -5,5 +5,5 @@ import ChatScreen from '../../screens/Chat';
 
 export default createStackNavigator({
   project_stack: ProjectsScreen,
-  chat: ChatScreen
+  // chat: ChatScreen
 });
