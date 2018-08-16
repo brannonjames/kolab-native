@@ -13,7 +13,7 @@ class SwipeScreen extends Component {
     try {
       await this.props.loadProjects();
     } catch (err) {
-
+      throw Error();
     }
   }
 

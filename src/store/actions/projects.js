@@ -3,7 +3,8 @@ import apiCall from '../../services/apiCall';
 import {
   LOAD_USER_PROJECTS,
   LOAD_USER_PROJECTS_SUCCESS,
-  LOAD_USER_PROJECTS_FAIL
+  LOAD_USER_PROJECTS_FAIL,
+  SET_CURRENT_PROJECT
 } from './types';
 
 export const loadUserProjects = () => async dispatch => {
@@ -25,4 +26,11 @@ export const loadUserProjects = () => async dispatch => {
     throw new Error(err.message);
 
   }
+}
+
+export const setCurrentProject = project => dispatch => {
+  dispatch({
+    type: SET_CURRENT_PROJECT,
+    payload: project
+  });
 }

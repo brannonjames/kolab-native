@@ -29,7 +29,7 @@ export default (state=initialState, action) => {
 
     case LIKE_PROJECT_SUCCESS:
     case REJECT_PROJECT_SUCCESS:
-      const projects = state.projects.filter(project => project.id !== action.payload);
+      const projects = state.projects.filter(project => project.id !== action.payload.id);
       return { ...this.state, projects }
 
     default:

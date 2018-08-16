@@ -26,7 +26,6 @@ export const loginUser = userInfo => async dispatch => {
 
       dispatch({ type: USER_LOGIN })
 
-
       let user = await apiCall({
         url: '/users/login',
         method: 'post',

@@ -46,12 +46,12 @@ export const likeProject = project => async dispatch => {
 
     dispatch({ type: LIKE_PROJECT });
 
-    await apiCall({
+    let likedProject = await apiCall({
       url: `/projects/${project.id}/views?liked=true`,
       method: 'post'
     });
 
-    dispatch({ type: LIKE_PROJECT_SUCCESS, payload: project.id });
+    dispatch({ type: LIKE_PROJECT_SUCCESS, payload: likedProject });
 
   } catch (err) {
 
