@@ -14,6 +14,7 @@ import {
   REJECT_PROJECT_FAIL
 } from './types';
 
+// Loads all the projects the current user has not seen to the swipe deck
 export const loadProjects = () => async dispatch => {
   try {
 
@@ -41,6 +42,10 @@ export const loadProjects = () => async dispatch => {
   }
 }
 
+// at this point likeProject and rejectProject shooooould be just one function
+// but I'm holding out that I'll have more seperate concerns for each one down the road
+
+// swipe right
 export const likeProject = project => async dispatch => {
   try {
 
@@ -64,6 +69,7 @@ export const likeProject = project => async dispatch => {
   }
 }
 
+// swipe left
 export const rejectProject = project => async dispatch => {
   try {
 

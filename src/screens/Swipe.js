@@ -36,6 +36,7 @@ class SwipeScreen extends Component {
       return <ErrorMsg error={error} />
     }
 
+    // ProjectDeck is where the magic happens, can you feel it? Can you feel the magic?
     return (
       <View style={styles.container}>
         <ProjectDeck 

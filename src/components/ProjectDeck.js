@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { 
   View,
-  Text,
   Animated,
   PanResponder,
-  Dimensions, 
-  LayoutAnimation, 
-  UIManager,
-  ScrollView,
-  StyleSheet
+  Dimensions
 } from 'react-native';
 
 import ProjectCard from './ProjectCard';
@@ -25,21 +20,40 @@ class ProjectDeck extends Component {
 
   constructor(props){
     super(props);
+
+    // set an initial position value which will eventually be modified 
+    // and then bound to the component we want to animate (ProjectCard)
     this.position = new Animated.ValueXY();
+
+    // PanResponder lets me capture the users touch input, then apply that
+    // gesutre position to the component position
     this.panResponder = PanResponder.create({
 
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
+        // updating the position as the user drags their finger accross the screen
+        // this ends up firing A LOT
         this.position.setValue({ x: gesture.dx, y: gesture.dy });
 
       },
+      // Oh you released your finger?
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > SWIPE_THRESHOLD) {
+
+          // was the card pretty far to the right?
+          // then force it the rest of the way over
           this.forceSwipe('right');
+
         } else if (gesture.dx < -SWIPE_THRESHOLD) {
+
+          // do the same on the left side
           this.forceSwipe('left');
+
         } else {
+
+          // otherwise you probably can decide to I'll snap the card back home
           this.resetPosition();
+
         }
       }
     });
@@ -48,12 +62,14 @@ class ProjectDeck extends Component {
 
   }
 
+  // reset card index and re-render when we add new data
   componentWillReceiveProps = nextProps => {
     if (nextProps.data !== this.props.data) {
       this.setState({ index: 0 });
     }
   }
 
+  // force the card to swipe as far as the screen is wide in 300ms
   forceSwipe = direction => {
     const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.position, {
@@ -62,6 +78,9 @@ class ProjectDeck extends Component {
     }).start(() => this.onSwipeComplete(direction));
   }
 
+  // run the appropiate callback
+  // reset the position for the next card
+  // set the index +1 to correspond with the next card
   onSwipeComplete = direction => {
     const { onSwipeLeft, onSwipeRight, data } = this.props;
     const item = data[this.state.index];
@@ -77,6 +96,8 @@ class ProjectDeck extends Component {
     }).start();
   }
 
+  // get the actual styles from the current position
+  // and apply the rotation
   getCardStyle = () => {
     // returns an interpolation object in which Animate.View can interpret
     const rotate = this.position.x.interpolate({
@@ -85,7 +106,6 @@ class ProjectDeck extends Component {
     });
 
     return {
-
       ...this.position.getLayout(),
       transform: [{ rotate }]
     }
@@ -93,6 +113,8 @@ class ProjectDeck extends Component {
 
 
   renderCards() {
+
+    // if no more cards in the deck to show
     if (this.state.index >= this.props.data.length) {
       return (
         <Animated.View style={styles.cardStyle}>
@@ -104,6 +126,7 @@ class ProjectDeck extends Component {
     return this.props.data.map((project, i) => {
       if (i < this.state.index) { return null }
       if (i === this.state.index) {
+        // render top card and apply panResponder stuff to it
         return (
           <Animated.View
             key={project.id}
@@ -114,6 +137,7 @@ class ProjectDeck extends Component {
           </Animated.View>
         )
       }
+      // render regular cards underneath
       return (
         <Animated.View
           key={project.id}
@@ -123,17 +147,14 @@ class ProjectDeck extends Component {
         </Animated.View>
       )
         
-
+      // reverse the array the the animated panHandler card sits on top of the rest
     }).reverse();
   }
 
   render() {
-    // return this.renderCards();
     return (
       <View style={styles.container}>
-
-        { this.renderCards() }
-        
+        { this.renderCards() } 
       </View>
     )
   }
@@ -141,8 +162,7 @@ class ProjectDeck extends Component {
 
 const styles = {
   container: {
-    flex: 1,
-    position: 'relative'
+    flex: 1
   },
   cardStyle: {
     position: 'absolute',

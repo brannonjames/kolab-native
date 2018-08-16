@@ -27,6 +27,7 @@ export default (state=initialState, action) => {
     case LOAD_SWIPE_PROJECTS_FAIL:
       return { projects: [], isLoading: false, error: action.error }
 
+    // whether the user swipes left or right, the card will be removed from the stack
     case LIKE_PROJECT_SUCCESS:
     case REJECT_PROJECT_SUCCESS:
       const projects = state.projects.filter(project => project.id !== action.payload.id);

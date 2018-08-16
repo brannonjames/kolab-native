@@ -16,6 +16,8 @@ class TechList extends Component {
     return COLORS[rand];
   }
 
+  // this throws all the little technology boxes on state right away
+  // so is to prevent the colors changing on a re-render
   componentDidMount() {
     const technologies = this.props.data.map((tech, i) => (
       <View 
