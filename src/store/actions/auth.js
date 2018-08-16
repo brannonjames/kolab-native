@@ -1,4 +1,4 @@
-import apiCall from '../../services/apiCall';
+import apiCall, { setTokenHeader } from '../../services/apiCall';
 import { SecureStore } from 'expo';
 
 import { 
@@ -26,6 +26,7 @@ export const loginUser = userInfo => async dispatch => {
 
       dispatch({ type: USER_LOGIN })
 
+
       let user = await apiCall({
         url: '/users/login',
         method: 'post',
@@ -35,6 +36,7 @@ export const loginUser = userInfo => async dispatch => {
       // sets the users token to device storage so the user can
       // be authorized when the app refreshes
       await SecureStore.setItemAsync('token', user.token);
+      setTokenHeader(user.token);
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
