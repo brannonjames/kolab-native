@@ -54,15 +54,11 @@ class ProjectDeck extends Component {
     }
   }
 
-  componentWillUpdate = () => {
-    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-    LayoutAnimation.spring();
-  }
-
   forceSwipe = direction => {
     const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.position, {
-      toValue: { x, y: 0 }
+      toValue: { x, y: 0 },
+      duration: 300
     }).start(() => this.onSwipeComplete(direction));
   }
 
@@ -97,7 +93,6 @@ class ProjectDeck extends Component {
 
 
   renderCards() {
-
     if (this.state.index >= this.props.data.length) {
       return (
         <Animated.View style={styles.cardStyle}>

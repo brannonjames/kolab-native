@@ -10,7 +10,11 @@ import ProjectDeck from '../components/ProjectDeck';
 class SwipeScreen extends Component {
   
   async componentDidMount() {
-    await this.props.loadProjects();
+    try {
+      await this.props.loadProjects();
+    } catch (err) {
+
+    }
   }
 
   handleSwipeRight = project => {
