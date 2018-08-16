@@ -17,7 +17,6 @@ export const loadUserProjects = () => async dispatch => {
       method: 'get'
     });
 
-    console.log(projects);
     dispatch({ type: LOAD_USER_PROJECTS_SUCCESS, payload: projects });
 
   } catch (err) {
