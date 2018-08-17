@@ -4,7 +4,6 @@ import { USER_LOGIN_SUCCESS } from './types';
 export const getCurrentUser = id => async dispatch => {
   try {
 
-    console.log(id);
     let user = await apiCall({
       url: `/users/${id}`,
       method: 'get'

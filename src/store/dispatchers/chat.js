@@ -5,8 +5,14 @@ import {
 
   LOAD_INITIAL_MESSAGES,
   LOAD_INITIAL_MESSAGES_SUCCESS,
-  LOAD_INITIAL_MESSAGES_FAIL
+  LOAD_INITIAL_MESSAGES_FAIL,
+
+  SEND_MESSAGE,
+  SEND_MESSAGE_SUCCESS,
+  SEND_MESSAGE_FAIL
+
 } from '../actions/types';
+
 
 const initialState = {
   messages: [],
@@ -21,6 +27,13 @@ export default (state=initialState, action) => {
     case LOAD_INITIAL_MESSAGES:
       return { ...state, isLoading: true }
 
+    case SEND_MESSAGE_SUCCESS:
+      return { ...state, messages: [...state.messages, action.payload] } 
+
+    case SEND_MESSAGE_FAIL:
+      const messages = state.messages.filter(msg => msg.id !== action.error.messageId);
+      return { ...state, messages };
+
     case ESTABLISH_SOCKET_CONNECTION:
       return { ...initialState, isLoading: true };
 
@@ -28,7 +41,7 @@ export default (state=initialState, action) => {
       return {...initialState, socket: action.payload };
 
     case LOAD_INITIAL_MESSAGES_SUCCESS:
-      return { ...state, messages: action.payload }  
+      return { ...state, messages: action.payload, isLoading: false }  
 
     case LOAD_INITIAL_MESSAGES_FAIL:  
     case ESTABLISH_SOCKET_CONNECTION_FAIL:

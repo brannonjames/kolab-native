@@ -2,11 +2,27 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import SendButton from './SendButton';
 
+const ChatInput = ({ onChange, message, onSubmit }) => {
+  return (
+    <View style={styles.containerStyle}>
+      
+        <TextInput 
+          style={styles.inputStyle}
+          onChangeText={onChange}
+          value={message}
+          multiline
+        />
+
+        <SendButton onPress={onSubmit} />
+      
+    </View>
+  );
+}
+
 const styles = {
   containerStyle: {
     padding: 10,
-    // height: 70,
-    backgroundColor: 'white',
+    backgroundColor: '#f7f7f7',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -16,7 +32,6 @@ const styles = {
     backgroundColor: '#eee',
     borderRadius: 8, 
     fontSize: 20,
-    // height: 36,
     padding: 6,
     paddingLeft: 8,
     paddingTop: 6,
@@ -28,48 +43,5 @@ const styles = {
 }
 
 
-
-class ChatInput extends Component {
-
-  state = { message: '' }
-
-  handleSubmit(){
-    this.props.handleSubmit(this.state.message);
-    this.setState({ message: '' });
-  }
-
-  render(){
-    return (
-
-
-         
-
-      
-      <View style={styles.containerStyle}>
-      
-      <TextInput 
-      style={styles.inputStyle}
-      onChangeText={message => this.setState({ message })}
-      value={this.state.message}
-      multiline
-    />
-
-    <SendButton onPress={() => this.handleSubmit(this.state.message)} />
-      
-      </View>
-      
-      
-      
-
-
-
-      
-
-  
-      
-
-    )
-  }
-}
 
 export default ChatInput;

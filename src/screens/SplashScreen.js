@@ -16,6 +16,7 @@ class SplashScreen extends Component {
 
     // gets the item from a secure storage locker on the device
     // expo handles all the security stuff behind the scenes
+
     let token = await SecureStore.getItemAsync('token');
 
     // this is for development only so I can test the auth routes

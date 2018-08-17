@@ -1,97 +1,86 @@
 import React from 'react';
-import { View, LayoutAnimation, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { openChatSocket, loadInitialMessages } from '../store/actions/chat';
+import { openChatSocket, loadInitialMessages, sendMessage } from '../store/actions/chat';
 import ChatInput from '../components/ChatInput';
 import ChatList from '../components/ChatList';
+import Main from '../components/Main';
+import Loader from '../components/Loader';
+import ErrorMsg from '../components/ErrorMsg';
 
 
 class Chat extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Chat'
+    title: 'Chat',
+    headerLeft: <Button title="Projects" onPress={() => navigation.navigate('projects')} />
   });
 
-  state = {
-    currentMessage: '',
-    messages: [],
-    socket: null
-  }
+  state = { message: '' }
 
   async componentDidMount(){
     const { currentProject, openChatSocket, navigation, loadInitialMessages } = this.props;
-
     try {
 
       await openChatSocket(currentProject.id);
       await loadInitialMessages();
 
     } catch (err) {
-      console.log(err)
+
       navigation.navigate('projects');
 
     }
-
-    // let token = await SecureStore.getItemAsync('token');
-
-
-    // this.setState({
-    //   socket: io('http://localhost:3060', {
-    //     extraHeaders: {
-    //       Authorization: `Bearer ${token}`
-    //     }
-    //   })
-    // });
-
-    // const { socket } = this.state;
-
-    // socket.emit('subscribe', this.props.room);
-
-    // socket.on('new_message', message => {
-    //   LayoutAnimation.spring();
-    //   this.setState({ messages: [...this.state.messages, message] });
-    // });
-
-    // socket.on('load_initial_messages', messages => {
-    //   this.setState({ messages });
-    // });
-
   } 
 
   componentWillUnmount() {
-    const { socket } = this.state;
+    const { socket } = this.props;
     socket.removeAllListeners();
   }
 
-  handleSubmit = message => {
-    // console.log(this.state.socket)
-    const newMessage = {
-      message,
-      room: this.props.room
+  handleSubmit = () => {
+    if (this.state.message.length > 0) {
+      this.props.sendMessage(this.state.message);
+      this.setState({ message: '' });
     }
-    this.state.socket.emit('send_message', newMessage);
   }
 
-  handleDelete = message => {
-    this.state.socket.emit('delete_message', message);
+  handleChange = message => {
+    this.setState({ message });
   }
-
 
   render(){
+    const { isLoading, error, messages } = this.props;
+    if (isLoading) {
+      return (
+        <Main>
+          <Loader size="large" />
+        </Main>
+      );
+    }
+    if (error) {
+      return (
+        <Main>
+          <ErrorMsg error={error} />
+        </Main>
+      )
+    }
+
     return (
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={64}  style={{ flex: 1 }} >
-        <View style={{ flex: 1 }}>
+        <Main>
 
           <ChatList 
-            messages={this.state.messages}
+            messages={messages}
             handleDelete={this.handleDelete}
           />
           
           
-          <ChatInput 
-            handleSubmit={this.handleSubmit}
+          <ChatInput
+            onChange={this.handleChange} 
+            onSubmit={this.handleSubmit}
+            message={this.state.message}
           />
 
-        </View>
+        </Main>
       </KeyboardAvoidingView>
     )
   }
@@ -99,7 +88,14 @@ class Chat extends React.Component {
 
 const mapStateToProps = ({ chat, projects }) => ({
   currentProject: projects.current,
-  messages: chat.messages
+  messages: chat.messages,
+  socket: chat.socket,
+  isLoading: chat.isLoading,
+  error: chat.error
 });
 
-export default connect(mapStateToProps, { openChatSocket, loadInitialMessages })(Chat);
+export default connect(mapStateToProps, {
+  openChatSocket,
+  loadInitialMessages,
+  sendMessage
+})(Chat);

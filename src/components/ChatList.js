@@ -5,7 +5,7 @@ class ChatList extends Component {
 
   renderChatMessage = ({ item }) => (
     <View style={styles.listItemStyle}>
-      <Text style={styles.listItemTextStyle}>{item.message}</Text>
+      <Text style={styles.listItemTextStyle}>{item.text}</Text>
     </View>
   )
 
@@ -15,7 +15,7 @@ class ChatList extends Component {
         <FlatList 
           data={this.props.messages}
           renderItem={this.renderChatMessage}
-          keyExtractor={item => item._id}
+          keyExtractor={item => String(item.id)}
           contentContainerStyle={styles.listStyle}
         />
       </View>

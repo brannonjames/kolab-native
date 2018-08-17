@@ -8,15 +8,20 @@ import {
 
   LOAD_INITIAL_MESSAGES,
   LOAD_INITIAL_MESSAGES_SUCCESS,
-  LOAD_INITIAL_MESSAGES_FAIL
+  LOAD_INITIAL_MESSAGES_FAIL,
+
+  SEND_MESSAGE,
+  SEND_MESSAGE_SUCCESS,
+  SEND_MESSAGE_FAIL
 
 } from './types';
 
 export const openChatSocket = projectId => async dispatch => {
-  try {
+  try { 
 
     dispatch({ type: ESTABLISH_SOCKET_CONNECTION });
-    let token = await SecureStore.getItemAsync('token');
+
+    let token = await SecureStore.getItemAsync('token'); 
 
     const socket = io('http://localhost:3060', {
       query: {
@@ -26,63 +31,70 @@ export const openChatSocket = projectId => async dispatch => {
     });
 
     await new Promise((resolve, reject) => {
-
       socket.emit('subscribe', { room: projectId });
 
       socket.on('subscribe_successful', () => {
         dispatch({ type: ESTABLISH_SOCKET_CONNECTION_SUCCESS, payload: socket });
         resolve();
       });
-
+  
       socket.on('subscribe_failure', () => {
         socket.removeAllListeners();
         dispatch({ type: ESTABLISH_SOCKET_CONNECTION_FAIL });
         reject('connection refused');
       });
-
-
     })
 
-    
-
   } catch (err) {
-    throw Error(err.message);
+      dispatch({ type: ESTABLISH_SOCKET_CONNECTION_FAIL });
+      throw new Error('Authentication Error');
   }
 }
 
 export const loadInitialMessages = () => async (dispatch, getState) => {
-  try {
 
-    dispatch({ type: LOAD_INITIAL_MESSAGES });
+  dispatch({ type: LOAD_INITIAL_MESSAGES });
 
-    const { chat } = getState();
-    const { socket } = chat;
+  const { socket } = getState().chat;
 
-    console.log(chat);
-    if (socket) {
+  if (socket) {
+    await new Promise((resolve, reject) => {
+      socket.emit('load_initial_messages');
 
-      await new Promise((resolve, reject) => {
-
-        socket.emit('load_initial_messages');
-
-        socket.on('load_initial_messages_success', messages => {
-          console.log(messages);
-          dispatch({ type: LOAD_INITIAL_MESSAGES_SUCCESS, payload: messages });
-          resolve();
-        });
+      socket.on('load_initial_messages_success', messages => {
+        dispatch({ type: LOAD_INITIAL_MESSAGES_SUCCESS, payload: messages });
+        resolve(messages);
+      });
   
-        socket.on('load_initial_messages_fail', error => {
-          dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error });
-          reject();
-        });
+      socket.on('load_initial_messages_fail', error => {
+        dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error });
+        reject(error);
+      });
+    });
+  }
+}
 
-      })
-      
-    } else {
-      dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error: 'Couldn\'t establish connection' });
-    }
+export const sendMessage = message => async (dispatch, getState) => {
 
-  } catch (err) {
-    dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error: err.message });
+  dispatch({ type: SEND_MESSAGE });
+
+  const { socket } = getState().chat;
+
+  if (socket) {
+    await new Promise((resolve, reject) => {
+      socket.emit('send_message', message);
+
+      socket.on('send_message_success', message => {
+        dispatch({ type: SEND_MESSAGE_SUCCESS, payload: message });
+        resolve(message);
+      });
+
+      socket.on('send_message_fail', error => {
+        error.messageId = message.id;
+        dispatch({ type: SEND_MESSAGE_FAIL, error });
+        reject(error);
+      });
+
+    });
   }
 }

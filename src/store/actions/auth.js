@@ -44,6 +44,8 @@ export const loginUser = userInfo => async dispatch => {
 
   } catch (err) {
 
+    console.log(err);
+
     dispatch({
       type: USER_LOGIN_FAIL,
       error: err.message || 'unknown error occured'
