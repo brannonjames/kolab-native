@@ -22,9 +22,12 @@ const ChatInput = ({ onChange, message, onSubmit }) => {
 const styles = {
   containerStyle: {
     padding: 10,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#f4f8ff',
     flexDirection: 'row',
     alignItems: 'center',
+    shadowOffset: { width: 0, height: -1 },
+    shadowColor: '#000',
+    shadowOpacity: 0.2
   },
 
   inputStyle: {
@@ -35,6 +38,8 @@ const styles = {
     padding: 6,
     paddingLeft: 8,
     paddingTop: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)'
   },
   avatarStyle: {
     marginLeft: 8, 

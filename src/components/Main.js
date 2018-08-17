@@ -10,7 +10,8 @@ export default ({ children, style }) => (
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgb(248, 248, 248)',
+    // backgroundColor: '#E8F1F2',
     justifyContent: 'center',
   }
 };

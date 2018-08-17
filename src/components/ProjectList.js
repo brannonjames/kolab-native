@@ -50,7 +50,9 @@ const styles = {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: '#000',
     shadowOpacity: 0.2,
-    marginTop: 14 
+    marginTop: 14,
+    marginLeft: 14,
+    marginRight: 14
   },
   projectText: {
     fontSize: 36,

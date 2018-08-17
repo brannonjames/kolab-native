@@ -8,6 +8,9 @@ export default createStackNavigator({
 },
 {
   navigationOptions: {
-    title: 'Account'
+    title: 'Account',
+    headerStyle: {
+      backgroundColor: '#f4f8ff'
+    }
   }
 });

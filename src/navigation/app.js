@@ -20,18 +20,31 @@ const appTabs = createBottomTabNavigator({
     screen: AccountNavigation,
     navigationOptions: { title: 'Account' }
   }
+}, {
+  tabBarOptions: {
+    activeBackgroundColor: '#f4f8ff',
+    inactiveBackgroundColor: '#f4f8ff'
+  }
 });
 
 // app navigation bundles with seperate auth view
 export default createStackNavigator({
   auth: AuthScreen,
   app: appTabs,
-  chat: createStackNavigator({ chat: ChatScreen })
+  chat: createStackNavigator({
+    chat: ChatScreen 
+  }, {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4f8ff'
+      }
+    }
+  })
 }, {
     headerMode: 'none',
     navigationOptions: {
       tabBarVisible: false,
-      gesturesEnabled: false
+      gesturesEnabled: false,
     },
     animationEnabled: 'false'
 });

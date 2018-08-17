@@ -8,6 +8,9 @@ export default createStackNavigator({
 },
 {
   navigationOptions: {
-    title: 'Swipe'
+    title: 'Swipe',
+    headerStyle: {
+      backgroundColor: '#f4f8ff'
+    }
   }
 });

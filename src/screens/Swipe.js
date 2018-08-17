@@ -6,6 +6,7 @@ import { loadProjects, likeProject, rejectProject } from '../store/actions/swipe
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
 import ProjectDeck from '../components/ProjectDeck';
+import Main from '../components/Main';
 
 class SwipeScreen extends Component {
   
@@ -38,13 +39,13 @@ class SwipeScreen extends Component {
 
     // ProjectDeck is where the magic happens, can you feel it? Can you feel the magic?
     return (
-      <View style={styles.container}>
+      <Main>
         <ProjectDeck 
           data={projects} 
           onSwipeLeft={this.handleSwipeLeft}
           onSwipeRight={this.handleSwipeRight}
         />
-      </View>
+      </Main>
     );
   }
 }
