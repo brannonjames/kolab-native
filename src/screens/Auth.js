@@ -72,7 +72,7 @@ class AuthScreen extends Component {
     const { isLoading, error } = this.props;
 
     return (
-      <Main>
+      <Main style={{ alignItems: 'center' }}>
 
         <Text style={authHeaderStyle}>
           {authType}

@@ -35,6 +35,7 @@ export const openChatSocket = projectId => async dispatch => {
 
       socket.on('subscribe_successful', () => {
         dispatch({ type: ESTABLISH_SOCKET_CONNECTION_SUCCESS, payload: socket });
+        initializeSocketListeners(dispatch, socket);
         resolve();
       });
   
@@ -58,19 +59,7 @@ export const loadInitialMessages = () => async (dispatch, getState) => {
   const { socket } = getState().chat;
 
   if (socket) {
-    await new Promise((resolve, reject) => {
-      socket.emit('load_initial_messages');
-
-      socket.on('load_initial_messages_success', messages => {
-        dispatch({ type: LOAD_INITIAL_MESSAGES_SUCCESS, payload: messages });
-        resolve(messages);
-      });
-  
-      socket.on('load_initial_messages_fail', error => {
-        dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error });
-        reject(error);
-      });
-    });
+    socket.emit('load_initial_messages');
   }
 }
 
@@ -81,20 +70,27 @@ export const sendMessage = message => async (dispatch, getState) => {
   const { socket } = getState().chat;
 
   if (socket) {
-    await new Promise((resolve, reject) => {
-      socket.emit('send_message', message);
-
-      socket.on('send_message_success', message => {
-        dispatch({ type: SEND_MESSAGE_SUCCESS, payload: message });
-        resolve(message);
-      });
-
-      socket.on('send_message_fail', error => {
-        error.messageId = message.id;
-        dispatch({ type: SEND_MESSAGE_FAIL, error });
-        reject(error);
-      });
-
-    });
+    socket.emit('send_message', message);
   }
+}
+
+const initializeSocketListeners = (dispatch, socket) => {
+
+  socket.on('load_initial_messages_success', messages => {
+    dispatch({ type: LOAD_INITIAL_MESSAGES_SUCCESS, payload: messages });
+  });
+
+  socket.on('load_initial_messages_fail', error => {
+    dispatch({ type: LOAD_INITIAL_MESSAGES_FAIL, error: error });
+  });
+
+  socket.on('send_message_success', message => {
+    dispatch({ type: SEND_MESSAGE_SUCCESS, payload: message });
+  });
+
+  socket.on('send_message_fail', error => {
+    error.messageId = message.id;
+    dispatch({ type: SEND_MESSAGE_FAIL, error });
+  });
+
 }
