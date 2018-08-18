@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { loadProjectsCreated } from '../store/actions/projects';
 
-export default class AccountScreen extends Component {
+import Main from '../components/Main';
+import ProfileNumbers from '../components/ProfileNumbers';
+import ProfileNumberData from '../components/ProfileNumberData';
+import ProfileProjectList from '../components/ProfileProjectList';
+
+class AccountScreen extends Component {
+  componentDidMount() {
+    this.props.loadProjectsCreated();
+  }
+
+  handleProjectPress = project => {
+    
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Account Screen</Text>
-        <Button title="New" onPress={() => this.props.navigation.navigate('new_project')} />
-        <Button title="Edit" onPress={() => this.props.navigation.navigate('edit_project')} />
-      </View>
+      <Main style={{ justifyContent: 'flex-start' }}>
+        <ProfileNumbers>
+          <ProfileNumberData data={4} title="Created" />
+          <ProfileNumberData data={9} title="Collaborating" />
+        </ProfileNumbers>
+
+        <ProfileProjectList 
+          data={this.props.projects}
+          onProjectPress={this.handleProjectPress}
+        />
+
+      </Main>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const mapStateToProps = ({ projects }) => ({
+  projects: projects.created.all
 });
+
+export default connect(mapStateToProps, { loadProjectsCreated })(AccountScreen);

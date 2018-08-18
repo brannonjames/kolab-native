@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { loadUserProjects, setCurrentProject } from '../store/actions/projects';
+import { loadUserProjects, setCurrentProject, loadProjectsCreated } from '../store/actions/projects';
 import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
@@ -10,6 +10,7 @@ class ProjectsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({ title: 'Projects' });
 
   componentDidMount() {
+    this.props.loadProjectsCreated();
     this.props.loadUserProjects();
   }
 
@@ -36,7 +37,7 @@ class ProjectsScreen extends Component {
         </View>
       );
     }
-
+    
     return <ProjectList data={projects} handlePress={this.handlePress} />
   }
 }
@@ -51,9 +52,13 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = ({ projects }) => ({
-  projects: projects.all,
-  isLoading: projects.isLoading,
-  error: projects.error
+  projects: projects.collaborating.all,
+  isLoading: projects.created.isLoading || projects.collaborating.isLoading,
+  error: projects.created.error || projects.collaborating.error,
 });
 
-export default connect(mapDispatchToProps, { loadUserProjects, setCurrentProject })(ProjectsScreen);
+export default connect(mapDispatchToProps, {
+  loadUserProjects,
+  setCurrentProject,
+  loadProjectsCreated 
+})(ProjectsScreen);
