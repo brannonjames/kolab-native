@@ -80,7 +80,7 @@ export const rejectProject = project => async dispatch => {
       method: 'post'
     });
 
-    dispatch({ type: REJECT_PROJECT_SUCCESS, payload: project.id });
+    dispatch({ type: REJECT_PROJECT_SUCCESS, payload: project });
 
   } catch (err) {
 
