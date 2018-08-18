@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { FlatList, Text, View, LayoutAnimation } from 'react-native';
 
 class ChatList extends Component {
 
@@ -7,7 +7,11 @@ class ChatList extends Component {
     <View style={styles.listItemStyle}>
       <Text style={styles.listItemTextStyle}>{item.text}</Text>
     </View>
-  )
+  );
+
+  componentDidUpdate() {
+    LayoutAnimation.spring();
+  }
 
   render(){
     return (
