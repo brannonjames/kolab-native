@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { createProject } from '../store/actions/projects';
 
@@ -8,32 +9,49 @@ import ErrorMsg from '../components/ErrorMsg';
 
 class NewProjectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'New'
+    title: 'Create Project'
   });
 
-  handleSubmit = project => {
-    this.props.createProject(project);
+  state = { avoidKeyboard: false }
+
+  handleSubmit = async project => {
+    try {
+
+      await this.props.createProject(project);
+      this.props.navigation.navigate('account');
+
+    } catch (err) {
+      return false;
+    }
   }
 
   render() {
     return (
       <Main style={{ justifyContent: 'flex-start' }}>
+      
+        <ScrollView 
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="always"
+        >
+      
 
-        <ErrorMsg error={this.props.error} />
+            <ErrorMsg error={this.props.error} />
 
-        <ProjectForm 
-          handleSubmit={this.handleSubmit}
-          isLoading={this.props.isLoading}
-        />
+            <ProjectForm 
+              handleSubmit={this.handleSubmit}
+              isLoading={this.props.isLoading}
+            />
 
+          
+        </ScrollView>
       </Main>
     );
   }
 }
 
 const mapStateToProps = ({ projectForm }) => ({
-  // isLoading: projectForm.isLoading,
-  // error: projectForm.error
+  isLoading: projectForm.isLoading,
+  error: projectForm.error
 });
 
 export default connect(mapStateToProps, { createProject })(NewProjectScreen);

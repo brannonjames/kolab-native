@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
 
 export default props => {
   const {
@@ -24,6 +24,7 @@ export default props => {
         textContentType={contentType}
         autoCapitalize="none"
         returnKeyType={returnKeyType || "done"}
+        keyboardShouldPersistTaps="never"
       />
     </View>
   );

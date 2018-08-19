@@ -68,13 +68,25 @@ export const createProject = project => async dispatch => {
 
     dispatch({ type: CREATE_PROJECT });
 
+    if (project.title.length === 0) {
+      throw Error('Title is required');
+    }
+
+    if (project.technologies.length === 0) {
+      throw Error('You need to add at least one technology');
+    }
+
+    if (project.description.length === 0) {
+      throw Error('Please give a description');
+    }
+
     let newProject = await apiCall({
       url: '/projects',
       method: 'post',
       data: project
     });
 
-    dispatch({ type: CREATE_PROJECT_SUCCESS, payload: project });
+    dispatch({ type: CREATE_PROJECT_SUCCESS, payload: newProject });
 
   } catch (err) {
 

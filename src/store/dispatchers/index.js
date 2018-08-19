@@ -5,11 +5,13 @@ import user from './user';
 import swipe from './swipe';
 import projects from './projects';
 import chat from './chat';
+import projectForm from './projectForm';
 
 export default combineReducers({
   auth,
   user,
   swipe,
   projects,
-  chat
+  chat,
+  projectForm
 });
