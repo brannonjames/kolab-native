@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button as RNButton } from 'react-native';
+import { Button as RNButton, View } from 'react-native';
 import { connect } from 'react-redux';
 import { loadProjectsCreated } from '../store/actions/projects';
 import { logoutUser } from '../store/actions/auth';
@@ -31,19 +31,22 @@ class AccountScreen extends Component {
 
   render() {
     return (
-      <Main style={{ justifyContent: 'flex-start' }}>
-        <ProfileNumbers>
-          <ProfileNumberData data={4} title="Created" />
-          <ProfileNumberData data={9} title="Collaborating" />
-        </ProfileNumbers>
+      <Main style={{ justifyContent: 'space-between' }}>
+        <View>
+          <ProfileNumbers>
+            <ProfileNumberData data={4} title="Created" />
+            <ProfileNumberData data={9} title="Collaborating" />
+          </ProfileNumbers>
 
-        <ProfileProjectList 
-          data={this.props.projects}
-          onProjectPress={this.handleProjectPress}
-        />
+          <ProfileProjectList 
+            data={this.props.projects}
+            onProjectPress={this.handleProjectPress}
+          />
+        </View>
 
         <Button 
           title="Logout"
+          style={{ marginBottom: 50 }}
           onPress={this.logout}
         />
 
