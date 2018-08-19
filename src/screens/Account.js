@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button as RNButton, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { loadProjectsCreated, setCurrentProject } from '../store/actions/projects';
+import { loadProjectsCreated, setCurrentProject, loadUserProjects } from '../store/actions/projects';
 import { logoutUser } from '../store/actions/auth';
 
 import Main from '../components/Main';
@@ -17,6 +17,7 @@ class AccountScreen extends Component {
 
   componentDidMount() {
     this.props.loadProjectsCreated();
+    this.props.loadUserProjects();
   }
 
   handleProjectPress = project => {
@@ -67,5 +68,6 @@ const mapStateToProps = ({ projects }) => ({
 export default connect(mapStateToProps, {
   loadProjectsCreated, 
   logoutUser,
-  setCurrentProject
+  setCurrentProject,
+  loadUserProjects
 })(AccountScreen);
