@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
 
-export default ({ placeholder, onChange, inputStyle, containerStyle, value }) => (
+export default ({ placeholder, onChange, inputStyle, containerStyle, value, onSubmitEditing, returnKeyType }) => (
   <View style={[styles.container, containerStyle]}>
     <TextInput 
       multiline
@@ -9,6 +9,9 @@ export default ({ placeholder, onChange, inputStyle, containerStyle, value }) =>
       onChangeText={onChange}
       value={value}
       style={[styles.input, inputStyle]}
+      returnKeyType={returnKeyType || "done"}
+      blurOnSubmit={true}
+      onSubmitEditing={onSubmitEditing || (() => {})}
     />
   </View>
 );

@@ -28,6 +28,7 @@ export default ({ authType, onChange, formValues }) => {
         onChangeText={onChange('password')}
         contentType="password"
         value={password}
+        returnKeyType={authType === 'Sign Up' ? 'done' : 'go'}
       />
 
       { authType === 'Sign Up' &&
@@ -37,6 +38,7 @@ export default ({ authType, onChange, formValues }) => {
           onChangeText={onChange('confirm')}
           contentType="password"
           value={confirm}
+          returnKeyType="go"
         />
       }
 
@@ -49,6 +51,7 @@ const styles = {
     flex: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    margin: 36
+    marginTop: 36,
+    marginBottom: 36
   }
 }

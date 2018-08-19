@@ -3,6 +3,7 @@ import { View, Text, TextInput } from 'react-native';
 
 export default props => {
   const {
+    returnKeyType,
     contentType,
     onChangeText,
     inputStyle,
@@ -22,7 +23,7 @@ export default props => {
         style={[styles.input, inputStyle]}
         textContentType={contentType}
         autoCapitalize="none"
-        returnKeyType="done"
+        returnKeyType={returnKeyType || "done"}
       />
     </View>
   );

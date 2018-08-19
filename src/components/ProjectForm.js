@@ -71,28 +71,28 @@ class ProjectForm extends Component {
 
 
   render() {
+    const { newTechnology, project } = this.state;
     const {
       techFormStyle,
       techFromButtonStyle
     } = styles;
-    return (
-      <KeyboardAvoidingView style={{ flex: 1 }}>
-        <ScrollView 
+    return ( 
+      <ScrollView 
         style={{ flex: 1 }}
         keyboardShouldPersistTaps="always"
-        >
-
+      >
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
           <Input 
             placeholder="Title"
             onChangeText={this.handleChange('title')}
-            value={this.state.title}
+            value={project.title}
           />
 
           <View style={techFormStyle}>
             <Input 
               placeholder="Technologies"
               onChangeText={this.handleTechInputChange}
-              value={this.state.newTechnology.name}
+              value={newTechnology.name}
               containerStyle={{ flex: 1 }}
             />
             <Button 
@@ -101,32 +101,33 @@ class ProjectForm extends Component {
               style={techFromButtonStyle}
             />
           </View>
-            <TechList 
-              editMode
-              data={this.state.project.technologies}
-              handlePress={this.handleTechPress}
-            />
 
-            <TextArea 
-              placeholder="Description"
-              value={this.state.project.description}
-              onChange={this.handleChange('description')}
-            />
+          <TechList 
+            editMode
+            data={project.technologies}
+            handlePress={this.handleTechPress}
+          />
 
-            <Button 
-              onPress={() => this.props.handleSubmit(this.state.project)}
-              style={{ margin: 20 }}
-            >
-              {
-                this.props.isLoading ? <Loader /> :
-                <Text>Submit</Text>
-              }
-            </Button>
-          
+          <TextArea 
+            placeholder="Description"
+            value={project.description}
+            onChange={this.handleChange('description')}
+            returnKeyType="go"
+            onSubmitEditing={() => this.props.handleSubmit(project)}
+          />
+
+          <Button 
+            onPress={() => this.props.handleSubmit(project)}
+            style={{ margin: 20 }}
+          >
+            {
+              this.props.isLoading ? <Loader /> :
+              <Text>Submit</Text>
+            }
+          </Button>
         
-        
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     )
   }
 }
