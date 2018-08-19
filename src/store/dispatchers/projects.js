@@ -11,7 +11,7 @@ import {
   LOAD_PROJECTS_CREATED,
   LOAD_PROJECTS_CREATED_SUCCESS,
   LOAD_PROJECTS_CREATED_FAIL,
-  CREATE_PROJECT_SUCCESS
+  CREATE_PROJECT_SUCCESS,
 } from '../actions/types';
 
 const projectsState = {
@@ -39,7 +39,7 @@ const collaborating = (state=projectsState, action) => {
     
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
-     
+
     default:
       return state;
   }
@@ -56,8 +56,8 @@ const created = (state=projectsState, action) => {
       return { ...state, isLoading: false, error: action.error }  
 
     case CREATE_PROJECT_SUCCESS:
-      return { ...state, all: [...state.all, action.payload] }  
-
+      return { ...state, all: [...state.all, action.payload] } 
+      
     default:
       return state
   }

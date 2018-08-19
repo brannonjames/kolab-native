@@ -12,7 +12,9 @@ import {
 
   CREATE_PROJECT,
   CREATE_PROJECT_SUCCESS,
-  CREATE_PROJECT_FAIL
+  CREATE_PROJECT_FAIL,
+
+  CLEAR_PROJECT_FORM_ERROR
 
 } from './types';
 
@@ -93,5 +95,8 @@ export const createProject = project => async dispatch => {
     dispatch({ type: CREATE_PROJECT_FAIL, error: err.message });
     throw new Error(err.message);
   }
+}
 
+export const clearProjectError = () => dispatch => {
+  dispatch({ type: CLEAR_PROJECT_FORM_ERROR });
 }

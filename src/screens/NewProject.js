@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
-import { createProject } from '../store/actions/projects';
+import { createProject, clearProjectError } from '../store/actions/projects';
 
 import ProjectForm from '../components/ProjectForm';
 import Main from '../components/Main';
@@ -13,6 +13,10 @@ class NewProjectScreen extends Component {
   });
 
   state = { avoidKeyboard: false }
+
+  componentDidMount() {
+    this.props.clearProjectError();
+  }
 
   handleSubmit = async project => {
     try {
@@ -54,4 +58,4 @@ const mapStateToProps = ({ projectForm }) => ({
   error: projectForm.error
 });
 
-export default connect(mapStateToProps, { createProject })(NewProjectScreen);
+export default connect(mapStateToProps, { createProject, clearProjectError })(NewProjectScreen);

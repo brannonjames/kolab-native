@@ -2,6 +2,9 @@ import {
   CREATE_PROJECT,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAIL,
+
+  CLEAR_PROJECT_FORM_ERROR
+  
 } from '../actions/types';
 
 const initialState = {
@@ -20,6 +23,10 @@ export default (state=initialState, action) => {
 
     case CREATE_PROJECT_FAIL:
       return { error: action.error, isLoading: false }; 
+
+    case CLEAR_PROJECT_FORM_ERROR:
+      return { ...state, error: null }   
+
 
     default:
       return state;
