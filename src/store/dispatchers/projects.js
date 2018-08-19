@@ -44,6 +44,9 @@ const collaborating = (state=projectsState, action) => {
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
 
+    case CREATE_PROJECT_SUCCESS:
+      return { ...state, all: [...state.all, action.payload] } 
+
     case UPDATE_PROJECT_SUCCESS:
       return { 
         ...state, 

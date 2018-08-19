@@ -36,8 +36,8 @@ class AccountScreen extends Component {
       <Main style={{ justifyContent: 'space-between' }}>
         <View>
           <ProfileNumbers>
-            <ProfileNumberData data={4} title="Created" />
-            <ProfileNumberData data={9} title="Collaborating" />
+            <ProfileNumberData data={this.props.numCreated} title="Created" />
+            <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
           </ProfileNumbers>
 
           <ProfileProjectList 
@@ -58,7 +58,9 @@ class AccountScreen extends Component {
 }
 
 const mapStateToProps = ({ projects }) => ({
-  projects: projects.created.all
+  projects: projects.created.all,
+  numCreated: projects.created.all.length,
+  numCollaborating: projects.collaborating.all.length
 });
 
 export default connect(mapStateToProps, {
