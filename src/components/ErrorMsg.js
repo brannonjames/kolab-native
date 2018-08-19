@@ -15,7 +15,8 @@ export default ({ error }) => {
 
 const styles = {
   container: {
-    margin: 18
+    margin: 18,
+    alignSelf: 'center'
   },
   text: {
     color: 'red'
