@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Button as RNButton } from 'react-native';
 import { connect } from 'react-redux';
 import { loadProjectsCreated } from '../store/actions/projects';
+import { logoutUser } from '../store/actions/auth';
 
 import Main from '../components/Main';
+import Button from '../components/Button';
 import ProfileNumbers from '../components/ProfileNumbers';
 import ProfileNumberData from '../components/ProfileNumberData';
 import ProfileProjectList from '../components/ProfileProjectList';
@@ -21,6 +23,12 @@ class AccountScreen extends Component {
     
   }
 
+  logout = async () => {
+    console.log(this.props);
+    await this.props.logoutUser();
+    this.props.navigation.navigate('auth');
+  } 
+
   render() {
     return (
       <Main style={{ justifyContent: 'flex-start' }}>
@@ -34,6 +42,11 @@ class AccountScreen extends Component {
           onProjectPress={this.handleProjectPress}
         />
 
+        <Button 
+          title="Logout"
+          onPress={this.logout}
+        />
+
       </Main>
     );
   }
@@ -43,4 +56,4 @@ const mapStateToProps = ({ projects }) => ({
   projects: projects.created.all
 });
 
-export default connect(mapStateToProps, { loadProjectsCreated })(AccountScreen);
+export default connect(mapStateToProps, { loadProjectsCreated, logoutUser })(AccountScreen);

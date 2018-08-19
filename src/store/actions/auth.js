@@ -80,3 +80,21 @@ export const signupUser = userInfo => async dispatch => {
 
   }
 }
+
+export const logoutUser = () => async dispatch => {
+  try {
+
+    dispatch({ type: USER_LOGOUT });
+
+    await SecureStore.deleteItemAsync('token');
+
+    dispatch({ type: USER_LOGOUT_SUCCESS });
+
+
+  } catch (err) {
+
+    dispatch({ type: USER_LOGOUT_FAIL, error: err.message });
+    throw new Error(err.message);
+
+  }
+}
