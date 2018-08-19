@@ -11,9 +11,10 @@ import {
   LOAD_PROJECTS_CREATED,
   LOAD_PROJECTS_CREATED_SUCCESS,
   LOAD_PROJECTS_CREATED_FAIL,
-  CREATE_PROJECT_SUCCESS,
 
+  CREATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_SUCCESS,
+  DELETE_PROJECT_SUCCESS
 
 } from '../actions/types';
 
@@ -47,7 +48,13 @@ const collaborating = (state=projectsState, action) => {
       return { 
         ...state, 
         all: state.all.map(p => p.id === action.payload.id ? action.payload : p) 
-      }  
+      } 
+      
+    case DELETE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        all: state.all.filter(p => p.id !== action.payload.id)
+      }
 
     default:
       return state;
@@ -71,7 +78,13 @@ const created = (state=projectsState, action) => {
       return { 
         ...state, 
         all: state.all.map(p => p.id === action.payload.id ? action.payload : p) 
-      }   
+      }  
+      
+    case DELETE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        all: state.all.filter(p => p.id !== action.payload.id)
+    }  
       
     default:
       return state

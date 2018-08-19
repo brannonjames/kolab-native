@@ -18,6 +18,10 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_FAIL,
 
+  DELETE_PROJECT,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAIL,
+
   CLEAR_PROJECT_FORM_ERROR
 
 } from './types';
@@ -123,6 +127,26 @@ export const updateProject = project => async dispatch => {
   } catch (err) {
 
     dispatch({ type: UPDATE_PROJECT_FAIL, error: err.message });
+    throw new Error(err.message);
+
+  }
+}
+
+export const deleteProject = project => async dispatch => {
+  try {
+
+    dispatch({ type: DELETE_PROJECT });
+
+    let deletedProject = await apiCall({
+      url: `/projects/${project.id}`,
+      method: 'delete'
+    });
+
+    dispatch({ type: DELETE_PROJECT_SUCCESS, payload: deletedProject });
+
+  } catch (err) {
+
+    dispatch({ type: DELETE_PROJECT_FAIL, error: err.message });
     throw new Error(err.message);
 
   }

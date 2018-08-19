@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { 
@@ -39,7 +39,18 @@ class NewProjectScreen extends Component {
   }
 
   handleDelete = project => {
-
+    Alert.alert(
+      `Delete ${project.title}?`,
+      null,
+      [
+        { text: 'Cancel', style: 'cancel', onPress: () => {} },
+        { text: 'Delete', style: 'destructive', onPress: async () => {
+          const { deleteProject, navigation } = this.props;
+          await deleteProject(project);
+          navigation.navigate('account');
+        }}
+      ]
+    )
   }
 
   render() {
@@ -57,6 +68,7 @@ class NewProjectScreen extends Component {
             <ProjectForm 
               initialState={this.props.project}
               handleUpdate={this.handleUpdate}
+              handleDelete={this.handleDelete}
               isLoading={this.props.isLoading}
             />
 

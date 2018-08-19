@@ -7,6 +7,10 @@ import {
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_FAIL,
 
+  DELETE_PROJECT,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAIL,
+
   CLEAR_PROJECT_FORM_ERROR
   
 } from '../actions/types';
@@ -21,14 +25,17 @@ export default (state=initialState, action) => {
 
     case CREATE_PROJECT:
     case UPDATE_PROJECT:
+    case DELETE_PROJECT:
       return { error: null, isLoading: true };
 
     case UPDATE_PROJECT_SUCCESS:  
     case CREATE_PROJECT_SUCCESS:
+    case DELETE_PROJECT_SUCCESS:
       return initialState;
 
     case UPDATE_PROJECT_FAIL:  
     case CREATE_PROJECT_FAIL:
+    case DELETE_PROJECT_FAIL:
       return { error: action.error, isLoading: false }; 
 
     case CLEAR_PROJECT_FORM_ERROR:
