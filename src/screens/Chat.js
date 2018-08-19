@@ -66,7 +66,7 @@ class Chat extends React.Component {
 
     return (
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={64}  style={{ flex: 1 }} >
-        <Main>
+        <Main style={{ paddingLeft: 0, paddingRight: 0 }}>
 
           <ChatList 
             messages={messages}
@@ -87,7 +87,7 @@ class Chat extends React.Component {
 }
 
 const mapStateToProps = ({ chat, projects }) => ({
-  currentProject: projects.current,
+  currentProject: projects.current.project,
   messages: chat.messages,
   socket: chat.socket,
   isLoading: chat.isLoading,

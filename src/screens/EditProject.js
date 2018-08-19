@@ -45,9 +45,13 @@ class NewProjectScreen extends Component {
       [
         { text: 'Cancel', style: 'cancel', onPress: () => {} },
         { text: 'Delete', style: 'destructive', onPress: async () => {
-          const { deleteProject, navigation } = this.props;
-          await deleteProject(project);
-          navigation.navigate('account');
+          try {
+            const { deleteProject, navigation } = this.props;
+            await deleteProject(project);
+            navigation.navigate('account');
+          } catch (err) {
+            return null
+          }
         }}
       ]
     )
