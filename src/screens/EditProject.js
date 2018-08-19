@@ -14,7 +14,7 @@ import ErrorMsg from '../components/ErrorMsg';
 
 class NewProjectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Create Project'
+    title: 'Update Project'
   });
 
   state = { avoidKeyboard: false }

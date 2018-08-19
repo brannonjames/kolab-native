@@ -39,7 +39,7 @@ const collaborating = (state=projectsState, action) => {
     case LOAD_USER_PROJECTS_SUCCESS:
       return { ...state, all: action.payload, isLoading: false, error: null }
     case LOAD_USER_PROJECTS_FAIL:
-      return { ...initialState, error: action.error }
+      return { ...projectsState, error: action.error }
     
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
