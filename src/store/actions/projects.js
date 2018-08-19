@@ -14,6 +14,10 @@ import {
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAIL,
 
+  UPDATE_PROJECT,
+  UPDATE_PROJECT_SUCCESS,
+  UPDATE_PROJECT_FAIL,
+
   CLEAR_PROJECT_FORM_ERROR
 
 } from './types';
@@ -101,4 +105,25 @@ export const createProject = project => async dispatch => {
 
 export const clearProjectError = () => dispatch => {
   dispatch({ type: CLEAR_PROJECT_FORM_ERROR });
+}
+
+export const updateProject = project => async dispatch => {
+  try {
+
+    dispatch({ type: UPDATE_PROJECT });
+
+    let updatedProject = await apiCall({
+      url: `/projects/${project.id}`,
+      method: 'put',
+      data: project
+    });
+
+    dispatch({ type: UPDATE_PROJECT_SUCCESS, payload: updatedProject });
+
+  } catch (err) {
+
+    dispatch({ type: UPDATE_PROJECT_FAIL, error: err.message });
+    throw new Error(err.message);
+
+  }
 }

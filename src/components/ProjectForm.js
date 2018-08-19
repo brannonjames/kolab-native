@@ -71,7 +71,8 @@ class ProjectForm extends Component {
 
 
   render() {
-    const { newTechnology, project } = this.state;
+    const { newTechnology, project, avoidKeyboard } = this.state;
+    const { handleSubmit, isLoading, initialState, handleDelete, handleUpdate } = this.props;
     const {
       techFormStyle,
       techFromButtonStyle
@@ -80,7 +81,7 @@ class ProjectForm extends Component {
       <KeyboardAvoidingView 
         style={styles.container} 
         behavior="position" 
-        enabled={this.state.avoidKeyboard}
+        enabled={avoidKeyboard}
       >
         <Input 
           placeholder="Title"
@@ -120,14 +121,28 @@ class ProjectForm extends Component {
         
 
         <Button 
-          onPress={() => this.props.handleSubmit(project)}
+          onPress={() => initialState ? handleUpdate(project) : handleSubmit(project)}
           style={{ margin: 20 }}
         >
           {
-            this.props.isLoading ? <Loader /> :
-            <Text>Submit</Text>
+            isLoading ? <Loader /> :
+            <Text>{initialState ? 'Update' : 'Submit'}</Text>
           }
         </Button>
+
+        { initialState &&
+          <Button 
+            onPress={() => handleDelete(project)}
+            style={{ margin: 50, marginTop: 20, backgroundColor: '#ff8a82' }}
+          >
+            {
+              isLoading ? <Loader /> :
+              <Text>Delete</Text>
+            }
+          </Button>
+        }
+
+
       </KeyboardAvoidingView>  
     )
   }

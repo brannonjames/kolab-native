@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, KeyboardAvoidingView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { createProject, clearProjectError } from '../store/actions/projects';
+
+import { 
+  clearProjectError, 
+  updateProject, 
+  deleteProject 
+} from '../store/actions/projects';
 
 import ProjectForm from '../components/ProjectForm';
 import Main from '../components/Main';
@@ -20,15 +25,21 @@ class NewProjectScreen extends Component {
     }
   }
 
-  handleSubmit = async project => {
+  handleUpdate = async project => {
     try {
 
-      await this.props.updateProject(project);
-      this.props.navigation.navigate('account');
+      const { updateProject, navigation } = this.props;
+
+      await updateProject(project);
+      navigation.navigate('account');
 
     } catch (err) {
       return false;
     }
+  }
+
+  handleDelete = project => {
+
   }
 
   render() {
@@ -45,7 +56,7 @@ class NewProjectScreen extends Component {
 
             <ProjectForm 
               initialState={this.props.project}
-              handleSubmit={this.handleSubmit}
+              handleUpdate={this.handleUpdate}
               isLoading={this.props.isLoading}
             />
 
@@ -62,4 +73,8 @@ const mapStateToProps = ({ projectForm, projects }) => ({
   project: projects.current.project
 });
 
-export default connect(mapStateToProps, { createProject, clearProjectError })(NewProjectScreen);
+export default connect(mapStateToProps, {
+  updateProject, 
+  deleteProject, 
+  clearProjectError 
+})(NewProjectScreen);

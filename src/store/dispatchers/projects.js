@@ -12,6 +12,9 @@ import {
   LOAD_PROJECTS_CREATED_SUCCESS,
   LOAD_PROJECTS_CREATED_FAIL,
   CREATE_PROJECT_SUCCESS,
+
+  UPDATE_PROJECT_SUCCESS,
+
 } from '../actions/types';
 
 const projectsState = {
@@ -40,6 +43,12 @@ const collaborating = (state=projectsState, action) => {
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
 
+    case UPDATE_PROJECT_SUCCESS:
+      return { 
+        ...state, 
+        all: state.all.map(p => p.id === action.payload.id ? action.payload : p) 
+      }  
+
     default:
       return state;
   }
@@ -57,6 +66,12 @@ const created = (state=projectsState, action) => {
 
     case CREATE_PROJECT_SUCCESS:
       return { ...state, all: [...state.all, action.payload] } 
+
+    case UPDATE_PROJECT_SUCCESS:
+      return { 
+        ...state, 
+        all: state.all.map(p => p.id === action.payload.id ? action.payload : p) 
+      }   
       
     default:
       return state
