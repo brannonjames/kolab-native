@@ -88,6 +88,8 @@ export const createProject = project => async dispatch => {
       data: project
     });
 
+    console.log(newProject)
+
     dispatch({ type: CREATE_PROJECT_SUCCESS, payload: newProject });
 
   } catch (err) {

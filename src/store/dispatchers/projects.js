@@ -67,7 +67,7 @@ const current = (state=currentProjectState, action) => {
   switch(action.type) {
 
     case SET_CURRENT_PROJECT:
-      return { ...state, current: action.payload }
+      return { ...state, project: action.payload }
 
     default:
       return state;

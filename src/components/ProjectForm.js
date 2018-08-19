@@ -24,7 +24,7 @@ class ProjectForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.editMode) {
+    if (this.props.initialState) {
       this.setState({
         ...this.state,
         project: this.props.initialState
@@ -38,7 +38,6 @@ class ProjectForm extends Component {
       const { technologies } = this.state.project;
 
       newTechnology.color = this.pickRandomColor();
-      console.log(newTechnology);
   
       this.setState({ 
         project: { 

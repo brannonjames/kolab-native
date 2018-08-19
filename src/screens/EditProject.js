@@ -1,25 +1,65 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
+import { createProject, clearProjectError } from '../store/actions/projects';
 
-export default class EditProjectScreen extends Component {
+import ProjectForm from '../components/ProjectForm';
+import Main from '../components/Main';
+import ErrorMsg from '../components/ErrorMsg';
+
+class NewProjectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Edit'
+    title: 'Create Project'
   });
-  
+
+  state = { avoidKeyboard: false }
+
+  componentDidMount() {
+    if (this.props.error) {
+      this.props.clearProjectError();
+    }
+  }
+
+  handleSubmit = async project => {
+    try {
+
+      await this.props.updateProject(project);
+      this.props.navigation.navigate('account');
+
+    } catch (err) {
+      return false;
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Edit Project Screen</Text>
-      </View>
+      <Main style={{ justifyContent: 'flex-start' }}>
+      
+        <ScrollView 
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="always"
+        >
+      
+
+            <ErrorMsg error={this.props.error} />
+
+            <ProjectForm 
+              initialState={this.props.project}
+              handleSubmit={this.handleSubmit}
+              isLoading={this.props.isLoading}
+            />
+
+          
+        </ScrollView>
+      </Main>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const mapStateToProps = ({ projectForm, projects }) => ({
+  isLoading: projectForm.isLoading,
+  error: projectForm.error,
+  project: projects.current.project
 });
+
+export default connect(mapStateToProps, { createProject, clearProjectError })(NewProjectScreen);

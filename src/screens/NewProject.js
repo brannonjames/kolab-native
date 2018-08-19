@@ -15,7 +15,9 @@ class NewProjectScreen extends Component {
   state = { avoidKeyboard: false }
 
   componentDidMount() {
-    this.props.clearProjectError();
+    if (this.props.error) {
+      this.props.clearProjectError();
+    }
   }
 
   handleSubmit = async project => {

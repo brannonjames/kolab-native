@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button as RNButton, View } from 'react-native';
 import { connect } from 'react-redux';
-import { loadProjectsCreated } from '../store/actions/projects';
+import { loadProjectsCreated, setCurrentProject } from '../store/actions/projects';
 import { logoutUser } from '../store/actions/auth';
 
 import Main from '../components/Main';
@@ -20,13 +20,15 @@ class AccountScreen extends Component {
   }
 
   handleProjectPress = project => {
-    
+    const { setCurrentProject, navigation } = this.props;
+    setCurrentProject(project);
+    navigation.navigate('edit_project');
   }
 
   logout = async () => {
-    console.log(this.props);
-    await this.props.logoutUser();
-    this.props.navigation.navigate('auth');
+    const { logoutUser, navigation } = this.props;
+    await logoutUser();
+    navigation.navigate('auth');
   } 
 
   render() {
@@ -59,4 +61,8 @@ const mapStateToProps = ({ projects }) => ({
   projects: projects.created.all
 });
 
-export default connect(mapStateToProps, { loadProjectsCreated, logoutUser })(AccountScreen);
+export default connect(mapStateToProps, {
+  loadProjectsCreated, 
+  logoutUser,
+  setCurrentProject
+})(AccountScreen);
