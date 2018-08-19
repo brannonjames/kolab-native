@@ -166,8 +166,8 @@ const styles = {
   },
   cardStyle: {
     position: 'absolute',
-    width: SCREEN_WIDTH,
-    // screen height -  (margin + header + tabbar - statusbar)
+    width: SCREEN_WIDTH - 40,
+    // screen height -  (padding + header + tabbar - statusbar)
     // status bar is 44 on iPhone X
     height: SCREEN_HEIGHT - (40 + 43.5 + 48.5 - 20)
   }

@@ -40,9 +40,6 @@ class ProfileProjectList extends Component {
 }
 
 const styles = {
-  container: {
-    margin: 10,
-  },
   listHeaderContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',

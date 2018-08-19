@@ -29,9 +29,10 @@ class ProjectCard extends Component {
 
 const styles = {
   container: {
-    margin: 20,
     flex: 1,
     borderRadius: 6,
+    marginTop: 20,
+    marginBottom: 20
   },
   detailsViewStyle: {
     backgroundColor: '#E8F1F2',
