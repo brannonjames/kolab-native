@@ -78,7 +78,11 @@ class ProjectForm extends Component {
       techFromButtonStyle
     } = styles;
     return ( 
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position" enabled={this.state.avoidKeyboard}>
+      <KeyboardAvoidingView 
+        style={styles.container} 
+        behavior="position" 
+        enabled={this.state.avoidKeyboard}
+      >
         <Input 
           placeholder="Title"
           onChangeText={this.handleChange('title')}
@@ -131,6 +135,10 @@ class ProjectForm extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20
+  },
   techFormStyle: {
     flexDirection: 'row'
   },
