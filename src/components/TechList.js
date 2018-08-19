@@ -1,42 +1,44 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
-const COLORS = ['#80CED7', '#DC493A', '#84DCC6', '#ACD7EC', '#8B95C9'];
 
 class TechList extends Component {
   static defaultProps = { data: [] }
 
-  state = {
-    data: [],
-    technologies: []
-  }
 
-  pickRandomColor() {
-    const rand = Math.floor(Math.random() * COLORS.length);
-    return COLORS[rand];
-  }
-
-  // this throws all the little technology boxes on state right away
-  // so is to prevent the colors changing on a re-render
-  componentDidMount() {
-    const technologies = this.props.data.map((tech, i) => (
-      <View 
-          key={i} 
-          style={[styles.techStyle, { backgroundColor: this.pickRandomColor() }]}
-        >
-          <Text style={styles.techTextStyle}>{tech}</Text>
+  renderTechBoxes() {
+    const { data, editMode, handlePress } = this.props;
+    if (editMode) {
+      return data.map((tech, i) => (
+        <TouchableOpacity 
+            key={i} 
+            style={[styles.techStyle, { backgroundColor: tech.color }]}
+            onPress={handlePress.bind(null, tech.name)}
+          >
+            <Text style={styles.techTextStyle}>{tech.name}</Text>
+        </TouchableOpacity>
+      ));
+    } else {
+      return data.map((tech, i) => (
+        <View 
+            key={i} 
+            style={[styles.techStyle, { backgroundColor: tech.color }]}
+          >
+            <Text style={styles.techTextStyle}>{tech.name}</Text>
         </View>
-    ));
-    this.setState({ technologies });
-  }    
+      ));
+    }
+  }
     
 
   render() {
+    this.renderTechBoxes();
     return (
       <View style={styles.techContainerStyle}>
         <Text style={styles.techHeaderStyle}>Technologies Used</Text>
+        { this.props.editMode && <Text>Tap to remove</Text> }
         <View style={styles.techList}>
-          {this.state.technologies}
+          {this.renderTechBoxes()}
         </View>
       </View>
     );
@@ -58,7 +60,9 @@ const styles = {
     fontWeight: 'bold'
   },
   techStyle: {
-    borderRadius: 3, 
+    borderRadius: 3,
+    borderWidth: 1,
+    borderColor: 'black', 
     margin: 2,
     padding: 6
   },

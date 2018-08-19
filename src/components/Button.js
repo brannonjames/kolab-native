@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default ({title, onPress, style, children}) => {
 
@@ -24,7 +24,7 @@ export default ({title, onPress, style, children}) => {
 }
 
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     backgroundColor: '#A3CEF1',
     padding: 16,
@@ -38,4 +38,4 @@ const styles = {
   buttonTextStyle: {
     fontSize: 20
   }
-};
+});
