@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button as RNButton, View } from 'react-native';
+import { Button as RNButton, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { loadProjectsCreated, setCurrentProject } from '../store/actions/projects';
 import { logoutUser } from '../store/actions/auth';
@@ -33,7 +33,8 @@ class AccountScreen extends Component {
 
   render() {
     return (
-      <Main style={{ justifyContent: 'space-between' }}>
+      <Main>
+        <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
         <View>
           <ProfileNumbers>
             <ProfileNumberData data={this.props.numCreated} title="Created" />
@@ -51,7 +52,7 @@ class AccountScreen extends Component {
           style={{ marginBottom: 50 }}
           onPress={this.logout}
         />
-
+        </ScrollView>
       </Main>
     );
   }

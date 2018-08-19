@@ -12,6 +12,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    flexWrap: 'wrap'  
+    flexWrap: 'wrap',
+    marginBottom: 20
   }
 }
