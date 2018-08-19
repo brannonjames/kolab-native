@@ -32,11 +32,11 @@ class TechList extends Component {
     
 
   render() {
-    this.renderTechBoxes();
+    const { data, editMode } = this.props;
     return (
       <View style={styles.techContainerStyle}>
-        <Text style={styles.techHeaderStyle}>Technologies Used</Text>
-        { this.props.editMode && <Text>Tap to remove</Text> }
+        { data.length > 0 && <Text style={styles.techHeaderStyle}>Technologies Used</Text> }
+        { editMode && data.length > 0 && <Text>Tap to remove</Text> }
         <View style={styles.techList}>
           {this.renderTechBoxes()}
         </View>

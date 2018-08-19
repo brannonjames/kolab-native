@@ -8,7 +8,11 @@ import {
 
   LOAD_PROJECTS_CREATED,
   LOAD_PROJECTS_CREATED_SUCCESS,
-  LOAD_PROJECTS_CREATED_FAIL
+  LOAD_PROJECTS_CREATED_FAIL,
+
+  CREATE_PROJECT,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_FAIL
 
 } from './types';
 
@@ -57,4 +61,25 @@ export const setCurrentProject = project => dispatch => {
     type: SET_CURRENT_PROJECT,
     payload: project
   });
+}
+
+export const createProject = project => async dispatch => {
+  try {
+
+    dispatch({ type: CREATE_PROJECT });
+
+    let newProject = await apiCall({
+      url: '/projects',
+      method: 'post',
+      data: project
+    });
+
+    dispatch({ type: CREATE_PROJECT_SUCCESS, payload: project });
+
+  } catch (err) {
+
+    dispatch({ type: CREATE_PROJECT_FAIL, error: err.message });
+    throw new Error(err.message);
+  }
+
 }

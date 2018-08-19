@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { createProject } from '../store/actions/projects';
 
 import ProjectForm from '../components/ProjectForm';
 import Main from '../components/Main';
@@ -11,6 +11,10 @@ class NewProjectScreen extends Component {
     title: 'New'
   });
 
+  handleSubmit = project => {
+    this.props.createProject(project);
+  }
+
   render() {
     return (
       <Main style={{ justifyContent: 'flex-start' }}>
@@ -18,7 +22,7 @@ class NewProjectScreen extends Component {
         <ErrorMsg error={this.props.error} />
 
         <ProjectForm 
-          handleSubmit={() => {}}
+          handleSubmit={this.handleSubmit}
           isLoading={this.props.isLoading}
         />
 
@@ -28,8 +32,8 @@ class NewProjectScreen extends Component {
 }
 
 const mapStateToProps = ({ projectForm }) => ({
-  isLoading: projectForm.isLoading,
-  error: projectForm.error
+  // isLoading: projectForm.isLoading,
+  // error: projectForm.error
 });
 
-export default connect()(NewProjectScreen);
+export default connect(mapStateToProps, { createProject })(NewProjectScreen);

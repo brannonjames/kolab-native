@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, ScrollView, View, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, View, StyleSheet, Text } from 'react-native';
 
 import Input from './Input';
 import Button from './Button';
 import TechList from './TechList';
+import TextArea from './TextArea';
+import Loader from './Loader';
 
 const COLORS = ['#80CED7', '#DC493A', '#84DCC6', '#ACD7EC', '#8B95C9'];
 
@@ -67,6 +69,7 @@ class ProjectForm extends Component {
     this.setState({ project: { ...this.state.project, [name]: text } });
   }
 
+
   render() {
     const {
       techFormStyle,
@@ -103,6 +106,22 @@ class ProjectForm extends Component {
               data={this.state.project.technologies}
               handlePress={this.handleTechPress}
             />
+
+            <TextArea 
+              placeholder="Description"
+              value={this.state.project.description}
+              onChange={this.handleChange('description')}
+            />
+
+            <Button 
+              onPress={() => this.props.handleSubmit(this.state.project)}
+              style={{ margin: 20 }}
+            >
+              {
+                this.props.isLoading ? <Loader /> :
+                <Text>Submit</Text>
+              }
+            </Button>
           
         
         
