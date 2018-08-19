@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Button as RNButton } from 'react-native';
 import { connect } from 'react-redux';
 import { loadProjectsCreated } from '../store/actions/projects';
 
@@ -9,6 +9,10 @@ import ProfileNumberData from '../components/ProfileNumberData';
 import ProfileProjectList from '../components/ProfileProjectList';
 
 class AccountScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerRight: <RNButton title="Create" onPress={() => navigation.navigate('new_project')} />
+  });
+
   componentDidMount() {
     this.props.loadProjectsCreated();
   }

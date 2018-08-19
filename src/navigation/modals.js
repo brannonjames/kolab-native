@@ -15,6 +15,9 @@ export default createStackNavigator({
 }, {
   navigationOptions: ({navigation}) => ({
     headerLeft: null,
-    headerRight: <Button title="Cancel" onPress={() => navigation.navigate('app') } />
+    headerRight: <Button title="Cancel" onPress={() => navigation.navigate('app') } />,
+    headerStyle: {
+      backgroundColor: '#f4f8ff'
+    }
   })
 });
