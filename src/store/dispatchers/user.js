@@ -3,12 +3,18 @@ import {
   USER_LOGOUT_SUCCESS
 } from '../actions/types';
 
-export default (state=null, action) => {
+const initialState = {
+  id: 0,
+  username: '',
+  email: ''
+}
+
+export default (state=initialState, action) => {
   switch(action.type) {
     case USER_LOGIN_SUCCESS:
       return action.payload;
     case USER_LOGOUT_SUCCESS:
-      return null;
+      return initialState;
     default:
       return state;    
   }

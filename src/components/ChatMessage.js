@@ -14,6 +14,7 @@ export default ({
     userBubble,
     usernameStyle
   } = styles;
+  console.log(username);
   if (user_id === currentUserId) {
     return (
       <View style={chatContainer}>
