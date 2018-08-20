@@ -25,10 +25,14 @@ class SplashScreen extends Component {
     if (token) {
       // if a token is in device storage, hurray! You're authenticated,
       // take the user to the main app..
-      setTokenHeader(token);
-      const userId = jwtDecode(token).sub;
-      await getCurrentUser(userId);
-      navigation.navigate('app');
+      try {
+        setTokenHeader(token);
+        const userId = jwtDecode(token).sub;
+        await getCurrentUser(userId);
+        navigation.navigate('app');
+      } catch (err) {
+        return null;
+      }
 
     } else {
       // ..otherwise bring to the login page
