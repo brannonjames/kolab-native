@@ -25,6 +25,10 @@ class ProfileProjectList extends Component {
       listContainerStyle
     } = styles;
 
+    if (this.props.data.length === 0) {
+      return null;
+    }
+
     return (
       <View style={container}>
         <View style={listHeaderContainerStyle}>
