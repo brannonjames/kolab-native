@@ -12,8 +12,6 @@ const styles = {
     flex: 1,
     backgroundColor: 'rgb(248, 248, 248)',
     // backgroundColor: '#E8F1F2',
-    paddingLeft: 20,
-    paddingRight: 20,
-    justifyContent: 'center',
+    justifyContent: 'center'
   }
 };

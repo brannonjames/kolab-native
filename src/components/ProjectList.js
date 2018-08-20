@@ -36,6 +36,7 @@ class ProjectList extends Component {
           renderItem={item => this.renderProject(item)}
           keyExtractor={item => String(item.id)}
           ListFooterComponent={this.renderFooter}
+          contentContainerStyle={{ padding: 14 }}
         />
       </Main>
     );
@@ -50,7 +51,7 @@ const styles = {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: '#000',
     shadowOpacity: 0.2,
-    marginTop: 14
+    marginBottom: 14
   },
   projectText: {
     fontSize: 36,

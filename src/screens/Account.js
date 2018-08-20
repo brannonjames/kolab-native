@@ -35,7 +35,9 @@ class AccountScreen extends Component {
   render() {
     return (
       <Main>
-        <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
+        <ScrollView 
+          contentContainerStyle={{ padding: 20 }}
+        >
         <View>
           <ProfileNumbers>
             <ProfileNumberData data={this.props.numCreated} title="Created" />
@@ -50,7 +52,7 @@ class AccountScreen extends Component {
 
         <Button 
           title="Logout"
-          style={{ marginBottom: 50 }}
+          style={{ margin: 44 }}
           onPress={this.logout}
         />
         </ScrollView>

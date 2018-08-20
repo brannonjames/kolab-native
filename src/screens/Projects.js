@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
 import ProjectList from '../components/ProjectList';
+import Main from '../components/Main';
 
 class ProjectsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({ title: 'Projects' });
@@ -24,44 +25,35 @@ class ProjectsScreen extends Component {
 
     if (isLoading) {
       return (
-        <View style={styles.container}>
+        <Main>
           <Loader />
-        </View>
+        </Main>
       );
     }
 
     if (error) {
       return (
-        <View style={styles.container}>
+        <Main>
           <ErrorMsg error={error} />
-        </View>
+        </Main>
       );
     }
     
     return (
-      <View style={styles.container}>
+      <Main>
         <ProjectList data={projects} handlePress={this.handlePress} />
-      </View>
+      </Main>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-const mapDispatchToProps = ({ projects }) => ({
+const mapStateToProps = ({ projects }) => ({
   projects: projects.collaborating.all,
   isLoading: projects.created.isLoading || projects.collaborating.isLoading,
   error: projects.created.error || projects.collaborating.error,
 });
 
-export default connect(mapDispatchToProps, {
+export default connect(mapStateToProps, {
   loadUserProjects,
   setCurrentProject,
   loadProjectsCreated 

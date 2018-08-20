@@ -10,7 +10,7 @@ export default ({ children }) => (
 const styles = {
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     flexWrap: 'wrap',
     marginBottom: 20
