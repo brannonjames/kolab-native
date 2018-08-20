@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { FlatList, Text, View, LayoutAnimation } from 'react-native';
+import ChatMessage from './ChatMessage';
 
 class ChatList extends Component {
 
   renderChatMessage = ({ item }) => (
-    <View style={styles.listItemStyle}>
-      <Text style={styles.listItemTextStyle}>{item.text}</Text>
-    </View>
+      <ChatMessage 
+        key={item.id} 
+        {...item} 
+        currentUserId={this.props.currentUserId} 
+      />
   );
 
   componentDidUpdate() {
@@ -33,19 +36,6 @@ const styles = {
   container: {
     flex: 1,
     justifyContent: 'flex-end'
-  },
-  listItemStyle: {
-    height: 50,
-    margin: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#ccc',
-    padding: 8,
-    borderRadius: 8
-  },
-  listItemTextStyle: {
-    fontSize: 20
   },
   deleteButtonStyle: {
     fontSize: 24,

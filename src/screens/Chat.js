@@ -71,6 +71,7 @@ class Chat extends React.Component {
           <ChatList 
             messages={messages}
             handleDelete={this.handleDelete}
+            currentUserId={this.props.currentUserId}
           />
           
           
@@ -86,12 +87,13 @@ class Chat extends React.Component {
   }
 }
 
-const mapStateToProps = ({ chat, projects }) => ({
+const mapStateToProps = ({ chat, projects, user }) => ({
   currentProject: projects.current.project,
   messages: chat.messages,
   socket: chat.socket,
   isLoading: chat.isLoading,
-  error: chat.error
+  error: chat.error,
+  currentUserId: user.id
 });
 
 export default connect(mapStateToProps, {
