@@ -10,7 +10,7 @@ import ErrorMsg from '../components/ErrorMsg';
 
 class AuthScreen extends Component {
 
-  state = {
+  initialState = {
     authType: 'Sign Up',
     form: {
       username: '',
@@ -18,7 +18,9 @@ class AuthScreen extends Component {
       password: '',
       confirm: ''
     }
-  }
+  };
+
+  state = this.initialState;
 
   // this is what's responsible for toggling between
   // login and sign up views
@@ -50,11 +52,13 @@ class AuthScreen extends Component {
   
       if (authType === 'Login') {
         await loginUser(form);
+        this.setState({ form: this.initialState.form });
         navigation.navigate('app');
       }
   
       if (authType === 'Sign Up') {
         await signupUser(form);
+        this.setState({ form: this.initialState.form });
         this.toggleAuth();
       }
 
