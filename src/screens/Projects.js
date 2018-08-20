@@ -38,7 +38,11 @@ class ProjectsScreen extends Component {
       );
     }
     
-    return <ProjectList data={projects} handlePress={this.handlePress} />
+    return (
+      <View style={styles.container}>
+        <ProjectList data={projects} handlePress={this.handlePress} />
+      </View>
+    )
   }
 }
 

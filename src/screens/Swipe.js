@@ -30,11 +30,19 @@ class SwipeScreen extends Component {
     const { isLoading, projects, error } = this.props;
 
     if (isLoading) {
-      return <Loader color="blue" />
+      return (
+        <Main>
+          <Loader />
+        </Main>
+      )
     }
 
     if (error) {
-      return <ErrorMsg error={error} />
+      return (
+        <Main>
+          <ErrorMsg error={error} />
+        </Main>
+      )
     }
 
     // ProjectDeck is where the magic happens, can you feel it? Can you feel the magic?

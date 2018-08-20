@@ -17,10 +17,10 @@ class ChatList extends Component {
     return (
       <View style={styles.container}>
         <FlatList 
-          data={this.props.messages}
+          inverted
+          data={this.props.messages.reverse()}
           renderItem={this.renderChatMessage}
           keyExtractor={item => String(item.id)}
-          contentContainerStyle={styles.listStyle}
         />
       </View>
     )
@@ -34,11 +34,8 @@ const styles = {
     flex: 1,
     justifyContent: 'flex-end'
   },
-  listStyle: {
-    flex: 1,
-    justifyContent: 'flex-end'
-  },
   listItemStyle: {
+    height: 50,
     margin: 8,
     flexDirection: 'row',
     alignItems: 'center',

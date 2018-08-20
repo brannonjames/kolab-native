@@ -6,6 +6,7 @@ import swipe from './swipe';
 import projects from './projects';
 import chat from './chat';
 import projectForm from './projectForm';
+import splash from './splash';
 
 export default combineReducers({
   auth,
@@ -13,5 +14,6 @@ export default combineReducers({
   swipe,
   projects,
   chat,
-  projectForm
+  projectForm,
+  splash
 });
