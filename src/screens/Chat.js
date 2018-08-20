@@ -11,7 +11,7 @@ import ErrorMsg from '../components/ErrorMsg';
 
 class Chat extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Chat',
+    title: navigation.getParam('project') || 'Chat',
     headerLeft: <Button title="Projects" onPress={() => navigation.navigate('projects')} />
   });
 
@@ -20,7 +20,7 @@ class Chat extends React.Component {
   async componentDidMount(){
     const { currentProject, openChatSocket, navigation, loadInitialMessages } = this.props;
     try {
-
+      navigation.setParams({ project: currentProject.title });
       await openChatSocket(currentProject.id);
       await loadInitialMessages();
 

@@ -12,12 +12,20 @@ import ProfileProjectList from '../components/ProfileProjectList';
 
 class AccountScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('username') || 'Account',
     headerRight: <RNButton title="Create" onPress={() => navigation.navigate('new_project')} />
   });
 
   componentDidMount() {
-    this.props.loadProjectsCreated();
-    this.props.loadUserProjects();
+    const { 
+      navigation, 
+      username, 
+      loadProjectsCreated, 
+      loadUserProjects 
+    } = this.props;
+    navigation.setParams({ username });
+    loadProjectsCreated();
+    loadUserProjects();
   }
 
   handleProjectPress = project => {
@@ -61,7 +69,8 @@ class AccountScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ projects }) => ({
+const mapStateToProps = ({ projects, user }) => ({
+  username: user.username,
   projects: projects.created.all,
   numCreated: projects.created.all.length,
   numCollaborating: projects.collaborating.all.length
