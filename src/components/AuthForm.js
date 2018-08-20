@@ -51,7 +51,6 @@ const styles = {
     flex: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    marginTop: 36,
-    marginBottom: 36
+    padding: 36
   }
 }
