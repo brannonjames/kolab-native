@@ -11,15 +11,14 @@ export default ({ data, title }) => (
 const styles = {
   container: {
     alignItems: 'center',
-    padding: 20,
-    maxWidth: 160,
+    padding: 22,
   },
   dataStyle: {
     fontSize: 20,
     fontWeight: 'bold'
   },
   titleStyle: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center'
   }
 }
