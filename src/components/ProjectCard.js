@@ -5,23 +5,33 @@ import TechList from './TechList';
 import ProjectDescription from './ProjectDescription';
 
 class ProjectCard extends Component {
-
+  static defaultProps = {
+    header: true
+  }
  
   render() {
-    const { title, description, technologies } = this.props;
+    const { title, description, technologies, children, style, header } = this.props;
     const { container, titleContainerStyle, titleTextStyle, detailsViewStyle } = styles;
     return (
-      <View style={container}>
-
-          <View style={titleContainerStyle}>
-            <Text style={titleTextStyle}>{title}</Text>
-          </View>
+      <View style={[container, style]}>
+        
+          { header && 
+            <View style={titleContainerStyle}>
+              <Text style={titleTextStyle}>{title}</Text>
+            </View> 
+          }
+          
+          
 
           <View style={detailsViewStyle}>
-            <TechList data={technologies} />
-            <ProjectDescription text={description} />
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+              <TechList data={technologies} />
+              <ProjectDescription text={description} />
+            </ScrollView>
           </View>
 
+          { children }
+        
       </View>
     );
   }

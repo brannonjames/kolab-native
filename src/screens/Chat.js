@@ -12,6 +12,7 @@ import ErrorMsg from '../components/ErrorMsg';
 class Chat extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('project') || 'Chat',
+    headerRight: <Button title="Info" onPress={() => navigation.navigate('project_details')} />,
     headerLeft: <Button title="Projects" onPress={() => navigation.navigate('projects')} />
   });
 

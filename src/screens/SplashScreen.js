@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../store/actions/user';
 import jwtDecode from 'jwt-decode';
@@ -14,9 +14,12 @@ class SplashScreen extends Component {
   async componentDidMount() {
     const { navigation, getCurrentUser } = this.props;
 
+    // set the statusbar stuff (time, carrier, battery) stuff
+    // to be dark, should already by default unless app crashes
+    StatusBar.setBarStyle('default');
+
     // gets the item from a secure storage locker on the device
     // expo handles all the security stuff behind the scenes
-
     let token = await SecureStore.getItemAsync('token');
 
     // this is for development only so I can test the auth routes

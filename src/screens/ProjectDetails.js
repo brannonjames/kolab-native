@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StatusBar, Button } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class ProjectDetailsScreen extends Component {
+import Main from '../components/Main';
+import ProjectCard from '../components/ProjectCard';
+
+class ProjectDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Project Details',
-    headerRight: <Button title="Done" onPress={() => navigation.pop()} />
+    title: navigation.getParam('project') || 'Project Details',
+    headerRight: (
+      <Button 
+        title="Done" 
+        color="white" 
+        onPress={() => {
+          StatusBar.setBarStyle('default');
+          navigation.pop();
+        }} />
+    ),
+    headerStyle: {
+      backgroundColor: '#8380B6',
+    },
+    headerTitleStyle: {
+      color: 'white'
+    }
   })
+
+  componentDidMount() {
+    const { navigation, project } = this.props;
+    StatusBar.setBarStyle('light-content');
+    navigation.setParams({ project: project.title });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Project Details Screen</Text>
-      </View>
+      <Main>
+        <ProjectCard
+          {...this.props.project}
+          style={{ marginTop: 0, marginBottom: 0 }}
+          header={false}
+        >
+
+        </ProjectCard>
+      </Main>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const mapStateToProps = ({ projects }) => ({
+  project: projects.current.project
 });
+
+export default connect(mapStateToProps)(ProjectDetailsScreen);

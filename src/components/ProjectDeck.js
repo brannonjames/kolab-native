@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import ProjectCard from './ProjectCard';
+import Main from './Main';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -153,17 +154,14 @@ class ProjectDeck extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Main>
         { this.renderCards() } 
-      </View>
+      </Main>
     )
   }
 }
 
 const styles = {
-  container: {
-    flex: 1
-  },
   cardStyle: {
     position: 'absolute',
     width: SCREEN_WIDTH - 40,
