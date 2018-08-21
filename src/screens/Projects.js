@@ -20,6 +20,17 @@ class ProjectsScreen extends Component {
     this.props.navigation.navigate('chat');
   }
 
+  handleEditPress = project => {
+    const { setCurrentProject, navigation } = this.props;
+    setCurrentProject(project);
+    navigation.navigate('edit_project');
+  };
+
+
+  handleLeavePress = project => {
+
+  };
+
   render() {
     const { isLoading, error, created, collaborating } = this.props;
 
@@ -44,14 +55,16 @@ class ProjectsScreen extends Component {
         <ProjectList 
           created={created}
           collaborating={collaborating} 
-          handlePress={this.handlePress} 
+          handlePress={this.handlePress}
+          handleEditPress={this.handleEditPress}
         />
       </Main>
     )
   }
 }
 
-const mapStateToProps = ({ projects }) => ({
+const mapStateToProps = ({ projects, user }) => ({
+  currentUserId: user.id,
   created: projects.created.all,
   collaborating: projects.collaborating.all,
   isLoading: projects.created.isLoading || projects.collaborating.isLoading,

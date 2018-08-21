@@ -17,12 +17,20 @@ class ProjectList extends Component {
     this.setState({ scrollEnabled });
   }
 
-  renderProject = ({item}) => (
-    <ProjectListItem 
+  renderProject = ({ item, section }) => (
+    <ProjectListItem
+      type={section.name}
       project={item} 
       enableScroll={this.enableScroll}
+      handleProjectPress={this.props.handlePress.bind(null, item)}
+      handleToolPress={() => {
+        section.name === 'created' ? 
+        this.props.handleEditPress(item) :
+        this.props.handleLeavePress(item);
+      }}
     />
-  )
+  );
+ 
 
   renderSectionHeader = ({ section }) => (
     <Text>{section.title}</Text>
@@ -45,8 +53,8 @@ class ProjectList extends Component {
       <Main>
         <SectionList 
           sections={[
-            { title: 'Your Projects', data: created },
-            { title: 'Collaborating', data: collaborating }
+            { title: 'Your Projects', data: created, name: 'created' },
+            { title: 'Collaborating', data: collaborating, name: 'collaborating' }
           ]}
           renderSectionHeader={this.renderSectionHeader}
           renderItem={item => this.renderProject(item)}

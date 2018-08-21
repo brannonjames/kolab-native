@@ -55,27 +55,36 @@ class ProjectListItem extends Component {
       this.setState({ open });
     });
   }
+
+  renderToolButton() {
+    const { handleToolPress, type } = this.props;
+    const { toolButtonStyle, toolButtonTextStyle, toolButtonContainerStyle } = styles;
+    return (
+      <View style={toolButtonContainerStyle}>
+        <TouchableOpacity
+          onPress={handleToolPress}
+          style={toolButtonStyle}
+        >
+          <Text style={toolButtonTextStyle}>{type === 'created' ? 'Edit' : 'Leave'}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   render() {
-    const { project, handleProjectpress, handleToolPress } = this.props;
+    const { project, handleProjectPress } = this.props;
     const {
       projectContainerStyle,
       projectTopViewStyle,
       projectTitleStyle,
       projectTitleTextStyle,
       projectResponderStyle,
-      toolButtonStyle,
-      toolButtonTextStyle,
       dotStyle
     } = styles;
     return (
       <View style={projectContainerStyle} {...this.panResponder.panHandlers}>
 
-        <TouchableOpacity
-          onPress={handleToolPress}
-          style={toolButtonStyle}
-        >
-          <Text style={toolButtonTextStyle}>Leave</Text>
-        </TouchableOpacity>
+        { this.renderToolButton() }
 
         <Animated.View 
           style={[projectTopViewStyle, {
@@ -87,7 +96,7 @@ class ProjectListItem extends Component {
         >       
           <TouchableOpacity 
             key={project.id}
-            onPress={() => {}}
+            onPress={() => handleProjectPress()}
             style={projectTitleStyle}
           >
             <Text style={projectTitleTextStyle}>{project.title}</Text>
@@ -110,7 +119,6 @@ const styles = {
     shadowOpacity: 0.2,
     marginBottom: 14,
     borderRadius: 6,
-    backgroundColor: '#fff3cf',
     overflow: 'hidden',
   },
   projectTopViewStyle: {
@@ -137,28 +145,34 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  toolButtonStyle: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    width: 100,
-    borderRadius: 6,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  toolButtonTextStyle: {
-    fontSize: 18,
-    color: '#856404'
-  },
   dotStyle: {
     height: 8,
     width: 8,
     borderRadius: 4,
     backgroundColor: '#5b597f',
     opacity: 0.8
-  }
+  },
+  toolButtonContainerStyle: {
+    backgroundColor: '#fff3cf',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
+  },
+  toolButtonStyle: {
+    width: 100,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  toolButtonTextStyle: {
+    color: '#856404',
+    fontSize: 18
+  },
+
 }
 
 export default ProjectListItem;
