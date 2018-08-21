@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { loadUserProjects, setCurrentProject, loadProjectsCreated } from '../store/actions/projects';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
 import ProjectList from '../components/ProjectList';
 import Main from '../components/Main';
+import { 
+  loadUserProjects, 
+  setCurrentProject, 
+  loadProjectsCreated, 
+  leaveProject 
+} from '../store/actions/projects';
 
 class ProjectsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({ title: 'Projects' });
@@ -28,7 +33,16 @@ class ProjectsScreen extends Component {
 
 
   handleLeavePress = project => {
-
+    Alert.alert(
+      `Sure you want to leave ${project.title}?`,
+      null,
+      [
+        { text: 'Cancel', style: 'cancel', onPress: () => {} },
+        { text: 'Leave', style: 'destructive', onPress: async () => {
+          this.props.leaveProject(project);
+        }}
+      ]
+    )
   };
 
   render() {
@@ -57,6 +71,7 @@ class ProjectsScreen extends Component {
           collaborating={collaborating} 
           handlePress={this.handlePress}
           handleEditPress={this.handleEditPress}
+          handleLeavePress={this.handleLeavePress}
         />
       </Main>
     )
@@ -74,5 +89,6 @@ const mapStateToProps = ({ projects, user }) => ({
 export default connect(mapStateToProps, {
   loadUserProjects,
   setCurrentProject,
-  loadProjectsCreated 
+  loadProjectsCreated,
+  leaveProject 
 })(ProjectsScreen);

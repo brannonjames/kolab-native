@@ -26,6 +26,10 @@ import {
   GET_PROJECT_COLLABORATORS_SUCCESS,
   GET_PROJECT_COLLABORATORS_FAIL,
 
+  LEAVE_PROJECT,
+  LEAVE_PROJECT_SUCCESS,
+  LEAVE_PROJECT_FAIL,
+
   CLEAR_PROJECT_FORM_ERROR
 
 } from './types';
@@ -172,5 +176,24 @@ export const getProjectCollaborators = () => async (dispatch, getState) => {
     dispatch({ type: GET_PROJECT_COLLABORATORS_FAIL, error: 'Could Not Load Collaborators' });
     return null
 
+  }
+}
+
+export const leaveProject = project => async dispatch => {
+  try {
+
+    dispatch({ type: LEAVE_PROJECT });
+
+    await apiCall({
+      url: `/projects/${project.id}/leave`,
+      method: 'post'
+    });
+
+    dispatch({ type: LEAVE_PROJECT_SUCCESS, payload: project.id });
+
+  } catch (err) {
+    console.log(err.message);
+    dispatch({ type: LEAVE_PROJECT_FAIL, payload: `Having trouble leaving ${project.title}` });
+    return null;
   }
 }

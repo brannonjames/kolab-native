@@ -19,6 +19,8 @@ import {
   GET_PROJECT_COLLABORATORS,
   GET_PROJECT_COLLABORATORS_SUCCESS,
   GET_PROJECT_COLLABORATORS_FAIL,
+  LEAVE_PROJECT_SUCCESS,
+  LEAVE_PROJECT_FAIL,
 
 } from '../actions/types';
 
@@ -48,6 +50,13 @@ const collaborating = (state=projectsState, action) => {
     
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
+
+    case LEAVE_PROJECT_SUCCESS:
+      const projects = state.all.filter(project => project.id !== action.payload);
+      return { ...state, all: projects }  
+
+    case LEAVE_PROJECT_FAIL:
+      return { ...state, error: action.error }  
 
     default:
       return state;
