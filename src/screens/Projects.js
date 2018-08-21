@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Button as RNButton } from 'react-native';
 import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
@@ -13,7 +13,10 @@ import {
 } from '../store/actions/projects';
 
 class ProjectsScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({ title: 'Projects' });
+  static navigationOptions = ({ navigation }) => ({ 
+    title: 'Projects',
+    headerRight: <RNButton title="Create" onPress={() => navigation.navigate('new_project')} />
+  });
 
   componentDidMount() {
     this.props.loadProjectsCreated();

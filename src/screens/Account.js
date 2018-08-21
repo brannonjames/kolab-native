@@ -13,7 +13,6 @@ import ProfileProjectList from '../components/ProfileProjectList';
 class AccountScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('username') || 'Account',
-    headerRight: <RNButton title="Create" onPress={() => navigation.navigate('new_project')} />
   });
 
   componentDidMount() {
