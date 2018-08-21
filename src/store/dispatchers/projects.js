@@ -49,21 +49,6 @@ const collaborating = (state=projectsState, action) => {
     case LIKE_PROJECT_SUCCESS:
       return { ...state, all: [action.payload, ...state.all] }
 
-    case CREATE_PROJECT_SUCCESS:
-      return { ...state, all: [...state.all, action.payload] } 
-
-    case UPDATE_PROJECT_SUCCESS:
-      return { 
-        ...state, 
-        all: state.all.map(p => p.id === action.payload.id ? action.payload : p) 
-      } 
-      
-    case DELETE_PROJECT_SUCCESS:
-      return {
-        ...state,
-        all: state.all.filter(p => p.id !== action.payload.id)
-      }
-
     default:
       return state;
   }

@@ -23,7 +23,7 @@ class ProjectListItem extends Component {
       onPanResponderMove: (event, gesture) => {
         if (gesture.dx < 0 && gesture.dx > -200) {
           const offset = this.state.open ? 100 : 0
-          this.position.setValue({ x: gesture.dx - offset, y: 0 }); 
+          this.position.setValue({ x: gesture.dx - offset, y: gesture.dy }); 
         }
       },
       onPanResponderRelease: (event, gesture) => {
@@ -65,10 +65,11 @@ class ProjectListItem extends Component {
       projectTitleTextStyle,
       projectResponderStyle,
       toolButtonStyle,
-      toolButtonTextStyle
+      toolButtonTextStyle,
+      dotStyle
     } = styles;
     return (
-      <View style={projectContainerStyle}>
+      <View style={projectContainerStyle} {...this.panResponder.panHandlers}>
 
         <TouchableOpacity
           onPress={handleToolPress}
@@ -78,19 +79,22 @@ class ProjectListItem extends Component {
         </TouchableOpacity>
 
         <Animated.View 
-          style={[projectTopViewStyle, { ...this.position.getLayout() }]} 
-        >
+          style={[projectTopViewStyle, {...this.position.getLayout()}, { top: 0 }]} 
+          
+        >       
           <TouchableOpacity 
             key={project.id}
             onPress={() => {}}
             style={projectTitleStyle}
           >
-            <Text style={projectTitleTextStyle} allowFontScaling={true}>{project.title}</Text>
+            <Text style={projectTitleTextStyle}>{project.title}</Text>
           </TouchableOpacity>
 
-          <View style={projectResponderStyle} {...this.panResponder.panHandlers} />
+          <View style={projectResponderStyle}>
+            <View style={dotStyle} />
+          </View> 
 
-        </Animated.View>
+        </Animated.View>    
       </View>
     );
   }
@@ -103,23 +107,18 @@ const styles = {
     shadowOpacity: 0.2,
     marginBottom: 14,
     borderRadius: 6,
-    position: 'relative',
     backgroundColor: '#fff3cf',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   projectTopViewStyle: {
     flexDirection: 'row',
     backgroundColor: '#8380B6',
-    minHeight: 83,
     marginRight: 4,
     borderRadius: 6,
     overflow: 'hidden'
   },
   projectTitleStyle: {
-    backgroundColor: '#8380B6',
-    padding: 20,
-    paddingRight: 0,
-    flex: 1
+    flex: 4
   },
   projectTitleTextStyle: {
     fontSize: 36,
@@ -127,26 +126,35 @@ const styles = {
     fontWeight: 'bold',
     shadowOffset: { width: 2, height: 2 },
     shadowColor: '#eee',
-    shadowOpacity: 0.2
+    shadowOpacity: 0.2,
+    padding: 20
   },
   projectResponderStyle: {
-    width: 75,
-    backgroundColor: '#8380B6'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   toolButtonStyle: {
     position: 'absolute',
     top: 0,
     bottom: 0,
-    width: 100,
     right: 0,
+    width: 100,
+    borderRadius: 6,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16
   },
   toolButtonTextStyle: {
     fontSize: 18,
     color: '#856404'
+  },
+  dotStyle: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: '#5b597f',
+    opacity: 0.8
   }
 }
 
