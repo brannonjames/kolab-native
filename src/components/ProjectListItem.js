@@ -27,24 +27,23 @@ class ProjectListItem extends Component {
         }
       },
       onPanResponderRelease: (event, gesture) => {
-        this.props.enableScroll(true);
-        if (gesture.dx > -100) {
-          this.forceSlide(false);
-        } else {
-          this.forceSlide(true);
-        }
+        this.handleRelease(gesture.dx);
       },
       onPanResponderTerminate: (event, gesture) => {
-        this.props.enableScroll(true);
-        if (gesture.dx > -100) {
-          this.forceSlide(false);
-        } else {
-          this.forceSlide(true);
-        }
+        this.handleRelease(gesture.dx);
       },
     });
 
     this.state = { open: false }
+  }
+
+  handleRelease(gestureX) {
+    this.props.enableScroll(true);
+    if (gestureX > -100) {
+      this.forceSlide(false);
+    } else {
+      this.forceSlide(true);
+    }
   }
 
   forceSlide = open => {
@@ -79,7 +78,11 @@ class ProjectListItem extends Component {
         </TouchableOpacity>
 
         <Animated.View 
-          style={[projectTopViewStyle, {...this.position.getLayout()}, { top: 0 }]} 
+          style={[projectTopViewStyle, {
+            transform: [
+              { translateX: this.position.getLayout().left }
+            ]
+          }]} 
           
         >       
           <TouchableOpacity 
@@ -87,7 +90,7 @@ class ProjectListItem extends Component {
             onPress={() => {}}
             style={projectTitleStyle}
           >
-            <Text style={projectTitleTextStyle}>{project.title}</Text>
+            <Text style={[projectTitleTextStyle, {  }]}>{project.title}</Text>
           </TouchableOpacity>
 
           <View style={projectResponderStyle}>
@@ -127,12 +130,14 @@ const styles = {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: '#eee',
     shadowOpacity: 0.2,
-    padding: 20
+    padding: 20,
+    backgroundColor: 'red'
   },
   projectResponderStyle: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'blue'
   },
   toolButtonStyle: {
     position: 'absolute',
