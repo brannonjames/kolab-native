@@ -55,6 +55,7 @@ class AccountScreen extends Component {
           <ProfileProjectList 
             data={this.props.projects}
             onProjectPress={this.handleProjectPress}
+            header="Project you created"
           />
         </View>
 

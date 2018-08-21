@@ -2,18 +2,35 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 class ProfileProjectList extends Component {
+  static defaultProps = {
+    editMode: true,
+    type: 'projects'
+  }
   renderProjectList() {
-    const { onProjectPress, data } = this.props;
+    const { onProjectPress, data, type } = this.props;
     const { listItemStyle, listItemTextStyle } = styles;
-    return data.map((project, i) => (
-      <TouchableOpacity 
-        key={project.id} 
-        onPress={onProjectPress.bind(null, project)}
-        style={[listItemStyle, { borderBottomWidth: data.length - 1 === i ? 0 : 1 }]}
-      >
-        <Text style={listItemTextStyle}>{project.title}</Text>
-      </TouchableOpacity>
-    ));
+    if (type === 'projects') {
+      return data.map((project, i) => (
+        <TouchableOpacity 
+          key={project.id} 
+          onPress={onProjectPress.bind(null, project)}
+          style={[listItemStyle, { borderBottomWidth: data.length - 1 === i ? 0 : 1 }]}
+        >
+          <Text style={listItemTextStyle}>{project.title}</Text>
+        </TouchableOpacity>
+      ));
+    }
+    if (type === 'users') {
+      return data.map((user, i) => (
+        <View 
+          key={user.id} 
+          onPress={() => {}}
+          style={[listItemStyle, { borderBottomWidth: data.length - 1 === i ? 0 : 1 }]}
+        >
+          <Text style={listItemTextStyle}>{user.username}</Text>
+        </View>
+      ));
+    }
   }
   render() {
 
@@ -24,6 +41,10 @@ class ProfileProjectList extends Component {
       listHeaderDirectionStyle ,
       listContainerStyle
     } = styles;
+    const {
+      editMode,
+      header
+    } = this.props;
 
     if (this.props.data.length === 0) {
       return null;
@@ -32,8 +53,8 @@ class ProfileProjectList extends Component {
     return (
       <View style={container}>
         <View style={listHeaderContainerStyle}>
-          <Text style={listHeaderTitleStyle}>Projects you created</Text>
-          <Text style={listHeaderDirectionStyle}>Tap to edit</Text>
+          <Text style={listHeaderTitleStyle}>{header}</Text>
+          { editMode && <Text style={listHeaderDirectionStyle}>Tap to edit</Text>}
         </View>
         <View style={listContainerStyle}>
           { this.renderProjectList() }

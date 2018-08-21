@@ -27,10 +27,10 @@ class ProjectCard extends Component {
             <ScrollView contentContainerStyle={{ flex: 1 }}>
               <TechList data={technologies} />
               <ProjectDescription text={description} />
+              { children }
             </ScrollView>
           </View>
 
-          { children }
         
       </View>
     );

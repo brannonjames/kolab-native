@@ -14,7 +14,11 @@ import {
 
   CREATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_SUCCESS,
-  DELETE_PROJECT_SUCCESS
+  DELETE_PROJECT_SUCCESS,
+
+  GET_PROJECT_COLLABORATORS,
+  GET_PROJECT_COLLABORATORS_SUCCESS,
+  GET_PROJECT_COLLABORATORS_FAIL,
 
 } from '../actions/types';
 
@@ -26,6 +30,7 @@ const projectsState = {
 
 const currentProjectState = {
   project: null,
+  collaborators: [],
   isLoading: false,
   error: null
 }
@@ -96,6 +101,20 @@ const created = (state=projectsState, action) => {
 
 const current = (state=currentProjectState, action) => {
   switch(action.type) {
+
+    case GET_PROJECT_COLLABORATORS:
+      return { ...state, isLoading: true, error: null };
+
+    case GET_PROJECT_COLLABORATORS_SUCCESS:
+      return { 
+        ...state, 
+        isLoading: false, 
+        error: null, 
+        collaborators: action.payload
+      }
+
+    case GET_PROJECT_COLLABORATORS_FAIL:
+      return { ...state, isLoading: false, error: action.error }    
 
     case SET_CURRENT_PROJECT:
       return { ...state, project: action.payload }

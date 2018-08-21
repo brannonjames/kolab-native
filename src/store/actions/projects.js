@@ -22,6 +22,10 @@ import {
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
 
+  GET_PROJECT_COLLABORATORS,
+  GET_PROJECT_COLLABORATORS_SUCCESS,
+  GET_PROJECT_COLLABORATORS_FAIL,
+
   CLEAR_PROJECT_FORM_ERROR
 
 } from './types';
@@ -148,6 +152,31 @@ export const deleteProject = project => async dispatch => {
 
     dispatch({ type: DELETE_PROJECT_FAIL, error: err.message });
     throw new Error(err.message);
+
+  }
+}
+
+export const getProjectCollaborators = () => async (dispatch, getState) => {
+  try {
+
+    const currentProjectId = getState().projects.current.project.id;
+    console.log(currentProjectId);
+
+    dispatch({ type: GET_PROJECT_COLLABORATORS });
+
+    let collaborators = await apiCall({
+      url: `/projects/${currentProjectId}/collaborators`,
+      method: 'get'
+    });
+
+    console.log(collaborators)
+
+    dispatch({ type: GET_PROJECT_COLLABORATORS_SUCCESS, payload: collaborators });
+
+  } catch (err) {
+    console.log(err.message);
+    dispatch({ type: GET_PROJECT_COLLABORATORS_FAIL, error: 'Could Not Load Collaborators' });
+    return null
 
   }
 }
