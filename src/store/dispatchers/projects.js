@@ -29,7 +29,7 @@ const projectsState = {
 }
 
 const currentProjectState = {
-  project: null,
+  project: {},
   collaborators: [],
   isLoading: false,
   error: null

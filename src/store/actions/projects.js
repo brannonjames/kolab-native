@@ -160,7 +160,6 @@ export const getProjectCollaborators = () => async (dispatch, getState) => {
   try {
 
     const currentProjectId = getState().projects.current.project.id;
-    console.log(currentProjectId);
 
     dispatch({ type: GET_PROJECT_COLLABORATORS });
 
@@ -168,8 +167,6 @@ export const getProjectCollaborators = () => async (dispatch, getState) => {
       url: `/projects/${currentProjectId}/collaborators`,
       method: 'get'
     });
-
-    console.log(collaborators)
 
     dispatch({ type: GET_PROJECT_COLLABORATORS_SUCCESS, payload: collaborators });
 

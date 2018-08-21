@@ -9,9 +9,9 @@ import { createStackNavigator } from 'react-navigation';
 // I have to define my modals in the root so they
 // cover any other tab bars or headers
 export default createStackNavigator({
-  project_details: ProjectDetails,
   new_project: NewProject,
-  edit_project: EditProject
+  edit_project: EditProject,
+  project_details: ProjectDetails
 }, {
   navigationOptions: ({navigation}) => ({
     headerLeft: null,

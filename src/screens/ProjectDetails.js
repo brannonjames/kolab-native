@@ -19,7 +19,7 @@ class ProjectDetailsScreen extends Component {
         color="white" 
         onPress={() => {
           StatusBar.setBarStyle('default');
-          navigation.pop();
+          navigation.navigate('chat');
         }} />
     ),
     headerStyle: {
