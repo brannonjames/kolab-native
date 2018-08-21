@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { 
+  View, 
+  Text,
+  FlatList,
+} from 'react-native';
+
 import Main from './Main';
+import ProjectListItem from './ProjectListItem';
 
 class ProjectList extends Component {
 
-  renderProject = ({item}) => {
-    return (
-      <TouchableOpacity 
-        key={item.id}
-        onPress={() => this.props.handlePress(item)}
-        style={styles.project}
-      >
-        <Text style={styles.projectText}>{item.title}</Text>
-      </TouchableOpacity>
-    );
+  state = { scrollEnabled: true }
+
+  enableScroll = scrollEnabled => {
+    this.setState({ scrollEnabled });
   }
+
+  renderProject = ({item}) => (
+    <ProjectListItem 
+      project={item} 
+      enableScroll={this.enableScroll}
+    />
+  )
 
   renderFooter = () => {
     if (this.props.data !== 0) {
@@ -37,29 +44,10 @@ class ProjectList extends Component {
           keyExtractor={item => String(item.id)}
           ListFooterComponent={this.renderFooter}
           contentContainerStyle={{ padding: 14 }}
+          scrollEnabled={this.state.scrollEnabled}
         />
       </Main>
     );
-  }
-}
-
-const styles = {
-  project: {
-    backgroundColor: '#8380B6',
-    borderRadius: 6,
-    padding: 20,
-    shadowOffset: { width: 2, height: 2 },
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    marginBottom: 14
-  },
-  projectText: {
-    fontSize: 36,
-    color: '#eee',
-    fontWeight: 'bold',
-    shadowOffset: { width: 2, height: 2 },
-    shadowColor: '#eee',
-    shadowOpacity: 0.2
   }
 }
 
