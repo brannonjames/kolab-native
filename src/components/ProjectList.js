@@ -3,6 +3,7 @@ import {
   View, 
   Text,
   FlatList,
+  SectionList
 } from 'react-native';
 
 import Main from './Main';
@@ -23,6 +24,10 @@ class ProjectList extends Component {
     />
   )
 
+  renderSectionHeader = ({ section }) => (
+    <Text>{section.title}</Text>
+  );
+
   renderFooter = () => {
     if (this.props.data !== 0) {
       return null
@@ -35,11 +40,15 @@ class ProjectList extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { created, collaborating } = this.props;
     return (
       <Main>
-        <FlatList 
-          data={data}
+        <SectionList 
+          sections={[
+            { title: 'Your Projects', data: created },
+            { title: 'Collaborating', data: collaborating }
+          ]}
+          renderSectionHeader={this.renderSectionHeader}
           renderItem={item => this.renderProject(item)}
           keyExtractor={item => String(item.id)}
           ListFooterComponent={this.renderFooter}

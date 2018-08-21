@@ -100,8 +100,6 @@ export const createProject = project => async dispatch => {
       data: project
     });
 
-    console.log(newProject)
-
     dispatch({ type: CREATE_PROJECT_SUCCESS, payload: newProject });
 
   } catch (err) {
@@ -171,7 +169,6 @@ export const getProjectCollaborators = () => async (dispatch, getState) => {
     dispatch({ type: GET_PROJECT_COLLABORATORS_SUCCESS, payload: collaborators });
 
   } catch (err) {
-    console.log(err.message);
     dispatch({ type: GET_PROJECT_COLLABORATORS_FAIL, error: 'Could Not Load Collaborators' });
     return null
 

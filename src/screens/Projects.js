@@ -21,7 +21,7 @@ class ProjectsScreen extends Component {
   }
 
   render() {
-    const { isLoading, error, projects } = this.props;
+    const { isLoading, error, created, collaborating } = this.props;
 
     if (isLoading) {
       return (
@@ -41,14 +41,19 @@ class ProjectsScreen extends Component {
     
     return (
       <Main>
-        <ProjectList data={projects} handlePress={this.handlePress} />
+        <ProjectList 
+          created={created}
+          collaborating={collaborating} 
+          handlePress={this.handlePress} 
+        />
       </Main>
     )
   }
 }
 
 const mapStateToProps = ({ projects }) => ({
-  projects: projects.collaborating.all,
+  created: projects.created.all,
+  collaborating: projects.collaborating.all,
   isLoading: projects.created.isLoading || projects.collaborating.isLoading,
   error: projects.created.error || projects.collaborating.error,
 });

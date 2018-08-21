@@ -16,11 +16,14 @@ class ProjectListItem extends Component {
     this.position = new Animated.ValueXY();
 
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => {
+        this.props.enableScroll(false);
+        return true
+      },
       onPanResponderMove: (event, gesture) => {
         if (gesture.dx < 0 && gesture.dx > -200) {
-          this.props.enableScroll(false);
-          this.position.setValue({ x: gesture.dx, y: 0 });
+          const offset = this.state.open ? 100 : 0
+          this.position.setValue({ x: gesture.dx - offset, y: 0 }); 
         }
       },
       onPanResponderRelease: (event, gesture) => {
@@ -30,10 +33,18 @@ class ProjectListItem extends Component {
         } else {
           this.forceSlide(true);
         }
-      }
+      },
+      onPanResponderTerminate: (event, gesture) => {
+        this.props.enableScroll(true);
+        if (gesture.dx > -100) {
+          this.forceSlide(false);
+        } else {
+          this.forceSlide(true);
+        }
+      },
     });
 
-    this.state = { index: 0 }
+    this.state = { open: false }
   }
 
   forceSlide = open => {
@@ -41,7 +52,9 @@ class ProjectListItem extends Component {
     Animated.timing(this.position, {
       toValue: { x: xPosition, y: 0 },
       duration: 300
-    }).start();
+    }).start(() => {
+      this.setState({ open });
+    });
   }
   render() {
     const { project, handleProjectpress, handleToolPress } = this.props;
@@ -105,6 +118,7 @@ const styles = {
   projectTitleStyle: {
     backgroundColor: '#8380B6',
     padding: 20,
+    paddingRight: 0,
     flex: 1
   },
   projectTitleTextStyle: {
