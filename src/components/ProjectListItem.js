@@ -90,7 +90,7 @@ class ProjectListItem extends Component {
             onPress={() => {}}
             style={projectTitleStyle}
           >
-            <Text style={[projectTitleTextStyle, {  }]}>{project.title}</Text>
+            <Text style={projectTitleTextStyle}>{project.title}</Text>
           </TouchableOpacity>
 
           <View style={projectResponderStyle}>
@@ -130,14 +130,12 @@ const styles = {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: '#eee',
     shadowOpacity: 0.2,
-    padding: 20,
-    backgroundColor: 'red'
+    padding: 20
   },
   projectResponderStyle: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue'
   },
   toolButtonStyle: {
     position: 'absolute',
