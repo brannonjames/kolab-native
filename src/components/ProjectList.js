@@ -54,6 +54,7 @@ class ProjectList extends Component {
           ListFooterComponent={this.renderFooter}
           contentContainerStyle={{ padding: 14 }}
           scrollEnabled={this.state.scrollEnabled}
+          stickySectionHeadersEnabled={false}
         />
       </Main>
     );
