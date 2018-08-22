@@ -87,6 +87,7 @@ class ProjectForm extends Component {
           placeholder="Title"
           onChangeText={this.handleChange('title')}
           value={project.title}
+          limit={30}
         />
 
         <View style={techFormStyle}>
