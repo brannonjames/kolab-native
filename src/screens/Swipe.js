@@ -52,6 +52,7 @@ class SwipeScreen extends Component {
           data={projects} 
           onSwipeLeft={this.handleSwipeLeft}
           onSwipeRight={this.handleSwipeRight}
+          handleNewProject={() => this.props.navigation.navigate('new_project')}
         />
       </Main>
     );

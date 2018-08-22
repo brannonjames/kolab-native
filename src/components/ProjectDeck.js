@@ -8,6 +8,7 @@ import {
 
 import ProjectCard from './ProjectCard';
 import Main from './Main';
+import Button from './Button';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -114,12 +115,15 @@ class ProjectDeck extends Component {
 
 
   renderCards() {
+    const { data, handleNewProject } = this.props;
 
     // if no more cards in the deck to show
-    if (this.state.index >= this.props.data.length) {
+    if (this.state.index >= data.length) {
       return (
         <Animated.View style={styles.cardStyle}>
-          <ProjectCard title="No More Projects" description="Try creating one!"  />
+          <ProjectCard title="No More Projects" style={{ justifyContent: 'center' }}>
+            <Button title="Create New Project" onPress={handleNewProject}  />
+          </ProjectCard>
         </Animated.View>
       )
     }

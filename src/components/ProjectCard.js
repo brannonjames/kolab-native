@@ -10,7 +10,7 @@ class ProjectCard extends Component {
   }
  
   render() {
-    const { title, description, technologies, children, style, header } = this.props;
+    const { title, description, technologies, children, header, style } = this.props;
     const { container, titleContainerStyle, titleTextStyle, detailsViewStyle } = styles;
     return (
       <View style={[container, style]}>
@@ -24,7 +24,7 @@ class ProjectCard extends Component {
           
 
           <View style={detailsViewStyle}>
-            <ScrollView contentContainerStyle={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={[{ flex: 1 }, style]}>
               <TechList data={technologies} />
               <ProjectDescription text={description} />
               { children }

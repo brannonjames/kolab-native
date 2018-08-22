@@ -2,12 +2,15 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 export default ({ text }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.descriptionHeader}>Description</Text>
-      <Text>{text}</Text>
-    </View>
-  );
+  if (text) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.descriptionHeader}>Description</Text>
+        <Text>{text}</Text>
+      </View>
+    );
+  }
+  return null;
 }
 
 const styles = {
