@@ -13,10 +13,6 @@ class ProjectList extends Component {
 
   state = { scrollEnabled: true }
 
-  componentDidUpdate() {
-    LayoutAnimation.spring();
-  }
-
   enableScroll = scrollEnabled => {
     this.setState({ scrollEnabled });
   }

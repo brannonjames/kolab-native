@@ -63,6 +63,8 @@ class AccountScreen extends Component {
           style={{ margin: 44 }}
           onPress={this.logout}
         />
+
+        <Button title="Camera" onPress={() => this.props.navigation.navigate('camera')} />
         </ScrollView>
       </Main>
     );
