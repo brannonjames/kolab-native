@@ -23,8 +23,8 @@ export const openChatSocket = projectId => async dispatch => {
 
     let token = await SecureStore.getItemAsync('token'); 
 
-    const socket = io('https://kolab-api.herokuapp.com/', {
-    // const socket = io('http://localhost:3060/', {
+    // const socket = io('https://kolab-api.herokuapp.com/', {
+    const socket = io('http://localhost:3060/', {
       query: {
         auth_token: token,
         project_id: projectId
