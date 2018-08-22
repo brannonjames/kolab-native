@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { 
   View, 
   Text,
-  FlatList,
-  SectionList
+  SectionList,
+  LayoutAnimation
 } from 'react-native';
 
 import Main from './Main';
@@ -12,6 +12,10 @@ import ProjectListItem from './ProjectListItem';
 class ProjectList extends Component {
 
   state = { scrollEnabled: true }
+
+  componentDidUpdate() {
+    LayoutAnimation.spring();
+  }
 
   enableScroll = scrollEnabled => {
     this.setState({ scrollEnabled });
