@@ -7,6 +7,9 @@ import {
   PanResponder,
   Animated
 } from 'react-native';
+import { Haptic } from 'expo';
+
+const THRESHOLD = 120
 
 
 class ProjectListItem extends Component {
@@ -21,9 +24,14 @@ class ProjectListItem extends Component {
         return true
       },
       onPanResponderMove: (event, gesture) => {
-        if (gesture.dx < 0 && gesture.dx > -200) {
-          const offset = this.state.open ? 100 : 0
-          this.position.setValue({ x: gesture.dx - offset, y: gesture.dy }); 
+        if (gesture.dx < 0) {
+          this.position.setValue({ x: gesture.dx, y: gesture.dy }); 
+          if (gesture.dx < -THRESHOLD && !this.state.feedbackGiven) {
+            this.setState({feedbackGiven: true});
+            Haptic.selection();
+          } else if (gesture.dx >= -THRESHOLD) {
+            this.setState({feedbackGiven: false});
+          } 
         }
       },
       onPanResponderRelease: (event, gesture) => {
@@ -33,40 +41,33 @@ class ProjectListItem extends Component {
         this.handleRelease(gesture.dx);
       },
     });
-
-    this.state = { open: false }
+    this.state = {feedbackGiven: false};
   }
 
   handleRelease(gestureX) {
     this.props.enableScroll(true);
-    if (gestureX > -100) {
-      this.forceSlide(false);
-    } else {
-      this.forceSlide(true);
+    this.forceSlide();
+    if (gestureX < -THRESHOLD) {
+      this.props.handleToolPress();
     }
   }
 
-  forceSlide = open => {
-    const xPosition = open ? -100 : 0;
+  forceSlide = () => {
+    this.setState({feedbackGiven: true});
     Animated.timing(this.position, {
-      toValue: { x: xPosition, y: 0 },
+      toValue: { x: 0, y: 0 },
       duration: 300
-    }).start(() => {
-      this.setState({ open });
-    });
+    }).start();
   }
 
   renderToolButton() {
-    const { handleToolPress, type } = this.props;
+    const { type } = this.props;
     const { toolButtonStyle, toolButtonTextStyle, toolButtonContainerStyle } = styles;
     return (
       <View style={toolButtonContainerStyle}>
-        <TouchableOpacity
-          onPress={handleToolPress}
-          style={toolButtonStyle}
-        >
-          <Text style={toolButtonTextStyle}>{type === 'created' ? 'Edit' : 'Leave'}</Text>
-        </TouchableOpacity>
+        <View style={toolButtonStyle}>
+          { this.state.feedbackGiven && <Text style={toolButtonTextStyle}>{type === 'created' ? 'Edit' : 'Leave'}</Text> }
+        </View>
       </View>
     )
   }
@@ -96,7 +97,10 @@ class ProjectListItem extends Component {
         >       
           <TouchableOpacity 
             key={project.id}
-            onPress={() => handleProjectPress()}
+            onPress={() => {
+              this.forceSlide(false);
+              handleProjectPress();
+            }}
             style={projectTitleStyle}
           >
             <Text style={projectTitleTextStyle}>{project.title}</Text>
