@@ -8,7 +8,6 @@ import Main from '../components/Main';
 import Button from '../components/Button';
 import ProfileNumbers from '../components/ProfileNumbers';
 import ProfileNumberData from '../components/ProfileNumberData';
-import ProfileProjectList from '../components/ProfileProjectList';
 import Avatar from '../components/Avatar';
 
 class AccountScreen extends Component {

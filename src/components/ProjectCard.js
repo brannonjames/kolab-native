@@ -47,7 +47,6 @@ const styles = {
   detailsViewStyle: {
     backgroundColor: '#E8F1F2',
     flex: 1,
-    alignItems: 'center',
     borderBottomRightRadius: 6,
     borderBottomLeftRadius: 6,
     borderBottomWidth: 4,
