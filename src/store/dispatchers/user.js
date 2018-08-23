@@ -1,6 +1,7 @@
 import {
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT_SUCCESS
+  USER_LOGOUT_SUCCESS,
+  SAVE_AVATAR_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -15,6 +16,10 @@ export default (state=initialState, action) => {
       return action.payload;
     case USER_LOGOUT_SUCCESS:
       return initialState;
+
+    case SAVE_AVATAR_SUCCESS:
+      return action.payload;
+       
     default:
       return state;    
   }

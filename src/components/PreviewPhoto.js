@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import Loader from './Loader';
 
 
 class PreviewPhoto extends Component {
 
   render() {
-    const { exit, onSave } = this.props;
+    const { exit, onSave, picture, isLoading } = this.props;
     return (
         <View style={styles.previewContainerStyle}>
 
-          <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/kolab-72641.appspot.com/o/avatars%2F1534988986724.jpg?alt=media&token=3b02a318-b1ac-4aef-87d3-365381d05d64' }} style={styles.imageStyle} />
+          <Image source={{ uri: picture.uri }} style={styles.imageStyle} />
   
           <View style={styles.previewStyle}>
 
@@ -22,7 +22,7 @@ class PreviewPhoto extends Component {
     
             <View style={styles.bottomToolbarStyle}>
               <TouchableOpacity style={styles.saveButtonStyle} onPress={onSave}>
-                <Text>Save</Text>
+                { isLoading ? <Loader /> : <Text>Save</Text> }
               </TouchableOpacity>
             </View>
 

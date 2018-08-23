@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Camera, Permissions, ImageManipulator } from 'expo';
 
 
 class SnapPhoto extends Component {
@@ -25,7 +25,7 @@ class SnapPhoto extends Component {
 
   snap = async () => {
     if (this.camera) {
-      let picture = await this.camera.takePictureAsync({ base64: true });
+      let picture = await this.camera.takePictureAsync();
       this.props.onSnap(picture);
     }
   }
@@ -37,7 +37,6 @@ class SnapPhoto extends Component {
           style={{ flex: 1 }} 
           type={this.state.type} 
           ref={ref => this.camera = ref}
-          pictureSize="1920x1080"
         >
           <View style={styles.cameraStyle}>
   

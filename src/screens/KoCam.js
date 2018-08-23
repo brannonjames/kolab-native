@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { StatusBar } from 'react-native';
+import { ImageManipulator } from 'expo';
+import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { saveAvatar } from '../store/actions/camera';
 
 import SnapPhoto from '../components/SnapPhoto';
 import PreviewPhoto from '../components/PreviewPhoto';
@@ -15,15 +17,11 @@ class KoCam extends Component {
 
   state = {
     picture: null,
-    imageRef: null,
     name: Date.now()
   }
 
   componentDidMount() {
-    StatusBar.setHidden(true);
-    const storage = firebase.storage();
-    this.storageRef = storage.ref();
-    
+    StatusBar.setHidden(true);    
   }
 
   componentWillUnmount() {
@@ -41,15 +39,24 @@ class KoCam extends Component {
   }
 
   handleSave = async () => {
-    console.log(this.state.picture.base64)
-    let response = await fetch(this.state.picture.uri);
-    let blog = await response.blob();
+    try {
+      const { saveAvatar, navigation } = this.props;
+      await saveAvatar(this.state.picture.uri);
+      this.setState({ picture: null });
+      navigation.navigate('account');
 
-    const imageRef = this.storageRef.child(`avatars/${this.state.name}.jpg`);
-    let snapshot = await imageRef.put(blog);
-
-    const url = await imageRef.getDownloadURL();
-    console.log(url);
+    } catch (err) {
+      Alert.alert(
+        'Uh Oh',
+        'Something went wrong adding your photo',
+        [
+          { text: 'OK', onPress: () => {
+            this.setState({ picture: null });
+            navigation.navigate('account');
+          }}
+        ]
+      )
+    }
   }
 
   render() {
@@ -66,10 +73,16 @@ class KoCam extends Component {
         picture={this.state.picture}
         exit={this.exit}
         onSave={this.handleSave}
+        isLoading={this.props.isLoading}
       />
     )
   }
 }
 
+const mapStateToProps = ({ camera }) => ({
+  isLoading: camera.isLoading,
+  error: camera.error
+});
 
-export default KoCam;
+
+export default connect(mapStateToProps, { saveAvatar })(KoCam);
