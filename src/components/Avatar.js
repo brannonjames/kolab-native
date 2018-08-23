@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const AVATAR_LARGE = 120;
-const AVATAR_SMALL = 40
+const AVATAR_SMALL = 34
 
 export default ({ uri, size, style }) => {
   const avatarSize = size === 'large' ? AVATAR_LARGE : AVATAR_SMALL;
