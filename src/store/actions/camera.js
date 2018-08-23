@@ -23,8 +23,12 @@ export const saveAvatar = uri => async (dispatch, getState) => {
       .ref()
       .child(`avatars/${filename}`)
 
-    let sized = await ImageManipulator.manipulate(uri,
-      [{ resize: { width: 400 }}]
+    let sized = await ImageManipulator.manipulate(
+      uri,
+      [{ resize: { width: 400 }}],
+      {
+        compress: 0.2
+      }
     );
 
     let response = await fetch(sized.uri);

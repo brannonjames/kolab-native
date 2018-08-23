@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import ProfileNumbers from '../components/ProfileNumbers';
 import ProfileNumberData from '../components/ProfileNumberData';
 import ProfileProjectList from '../components/ProfileProjectList';
+import Avatar from '../components/Avatar';
 
 class AccountScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -45,6 +46,13 @@ class AccountScreen extends Component {
         <ScrollView 
           contentContainerStyle={{ padding: 20 }}
         >
+
+        <Avatar 
+          size="large"
+          uri={this.props.avatarUrl}
+          style={{ alignSelf: 'center' }}
+        />
+
         <View>
           <ProfileNumbers>
             <ProfileNumberData data={this.props.numCreated} title="Created" />
@@ -73,6 +81,7 @@ class AccountScreen extends Component {
 
 const mapStateToProps = ({ projects, user }) => ({
   username: user.username,
+  avatarUrl: user.avatar_url, 
   projects: projects.created.all,
   numCreated: projects.created.all.length,
   numCollaborating: projects.collaborating.all.length
