@@ -33,7 +33,11 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 1, width: 1 },
     shadowOpacity: 0.2,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 44,
+    marginRight: 44,
+    marginTop: 20,
+    marginBottom: 20
   },
   buttonTextStyle: {
     fontSize: 20

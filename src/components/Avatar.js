@@ -24,7 +24,7 @@ export default ({ uri, size, style }) => {
   }
   return (
     <View style={[styles.avatarStyle, avatarSizeStyle, style]}>
-      <Ionicons name={'ios-person'} size={avatarSize} />;
+      <Ionicons name={'ios-person'} size={avatarSize} />
     </View>
   )
 
@@ -32,13 +32,14 @@ export default ({ uri, size, style }) => {
 
 const styles = {
   avatarStyle: {
-    // overflow: 'hidden',
+    overflow: 'hidden',
     alignSelf: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#E8F1F2',
     borderColor: 'rgba(66,66,66,0.4)',
-    borderWidth: 1
+    borderWidth: 1,
+    
   },
   avatarImageStyle: {
     height: undefined,

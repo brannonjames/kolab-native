@@ -67,12 +67,17 @@ class AccountScreen extends Component {
         </View>
 
         <Button 
+          title="New Photo" 
+          onPress={() => this.props.navigation.navigate('camera')} 
+        />
+
+
+        <Button 
           title="Logout"
-          style={{ margin: 44 }}
+          style={{ backgroundColor: '#ff8a82' }}
           onPress={this.logout}
         />
 
-        <Button title="Camera" onPress={() => this.props.navigation.navigate('camera')} />
         </ScrollView>
       </Main>
     );
