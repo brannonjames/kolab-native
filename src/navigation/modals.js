@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectDetails from '../screens/ProjectDetails';
 import NewProject from '../screens/NewProject';
 import EditProject from '../screens/EditProject';
-import Camera from '../screens/Camera';
+import KoKam from '../screens/KoCam';
 import { Button } from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
@@ -13,7 +13,7 @@ export default createStackNavigator({
   new_project: NewProject,
   edit_project: EditProject,
   project_details: ProjectDetails,
-  camera: Camera
+  camera: KoKam
 }, {
   navigationOptions: ({navigation}) => ({
     headerLeft: null,
