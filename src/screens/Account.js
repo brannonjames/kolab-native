@@ -47,29 +47,31 @@ class AccountScreen extends Component {
           contentContainerStyle={{ padding: 20 }}
         >
 
-        <Avatar 
-          size="large"
-          uri={this.props.avatarUrl}
-          style={{ alignSelf: 'center' }}
-        />
+        <View style={{ justifyContent: 'space-around' }}>
+
+
+          <Avatar 
+            size="large"
+            uri={this.props.avatarUrl}
+            style={{ alignSelf: 'center' }}
+          />
+
+          <Button 
+            title="New Photo" 
+            onPress={() => this.props.navigation.navigate('camera')} 
+            style={{ padding: 8, alignSelf: 'center' }}
+            />
+        
+        </View>
+
 
         <View>
           <ProfileNumbers>
             <ProfileNumberData data={this.props.numCreated} title="Created" />
             <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
           </ProfileNumbers>
-
-          <ProfileProjectList 
-            data={this.props.projects}
-            onProjectPress={this.handleProjectPress}
-            header="Project you created"
-          />
         </View>
 
-        <Button 
-          title="New Photo" 
-          onPress={() => this.props.navigation.navigate('camera')} 
-        />
 
 
         <Button 
