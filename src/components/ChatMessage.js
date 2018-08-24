@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import Avatar from './Avatar';
 
 export default ({ 
   text, 
   user_id, 
   currentUserId,
-  username
+  username,
+  avatar_url
 }) => {
   const {
     chatContainer,
@@ -26,8 +28,11 @@ export default ({
   return (
     <View style={chatContainer}>
       <View style={chatBubble}>
-        <Text style={usernameStyle}>{username}</Text>
-        <Text style={chatText}>{text}</Text>
+        <Avatar uri={avatar_url} style={{ marginRight: 6 }} />
+        <View>
+          <Text style={usernameStyle}>{username}</Text>
+          <Text style={chatText}>{text}</Text>
+        </View>
       </View>
     </View>
   );
@@ -42,7 +47,8 @@ const styles = {
   chatBubble: {
     backgroundColor: '#ccc',
     borderRadius: 8,
-    padding: 8,
+    padding: 6,
+    flexDirection: 'row'
   },
   chatText: {
     fontSize: 20

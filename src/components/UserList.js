@@ -1,36 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, LayoutAnimation } from 'react-native';
+import Avatar from './Avatar';
 
-class ProfileProjectList extends Component {
+class UserList extends Component {
   static defaultProps = {
     editMode: true,
     type: 'projects'
   }
-  renderProjectList() {
-    const { onProjectPress, data, type } = this.props;
-    const { listItemStyle, listItemTextStyle } = styles;
-    if (type === 'projects') {
-      return data.map((project, i) => (
-        <TouchableOpacity 
-          key={project.id} 
-          onPress={onProjectPress.bind(null, project)}
-          style={[listItemStyle, { borderBottomWidth: data.length - 1 === i ? 0 : 1 }]}
-        >
-          <Text style={listItemTextStyle}>{project.title}</Text>
-        </TouchableOpacity>
-      ));
-    }
-    if (type === 'users') {
-      return data.map((user, i) => (
-        <View 
-          key={user.id} 
+
+  state = { currentSelected: null }
+
+
+  renderUserList() {
+    const { data } = this.props;
+    const { listItemStyle, listItemTextStyle, bioStyle } = styles;
+    return data.map((user, i) => (
+      <TouchableOpacity 
+        key={user.id}
+        onPress={() => this.setState({ currentSelected: user.id })}
+      >
+        <View  
           onPress={() => {}}
           style={[listItemStyle, { borderBottomWidth: data.length - 1 === i ? 0 : 1 }]}
         >
+          <Avatar uri={user.avatar_url} />
           <Text style={listItemTextStyle}>{user.username}</Text>
         </View>
-      ));
-    }
+
+        { this.state.currentSelected === user.id &&
+          <View style={bioStyle}>
+            <Text>{ user.bio || 'No Bio' }</Text>
+          </View>
+        }
+
+      </TouchableOpacity>
+    ));
   }
   render() {
 
@@ -57,7 +61,7 @@ class ProfileProjectList extends Component {
           { editMode && <Text style={listHeaderDirectionStyle}>Tap to edit</Text>}
         </View>
         <View style={listContainerStyle}>
-          { this.renderProjectList() }
+          { this.renderUserList() }
         </View>
       </View>
     );
@@ -65,6 +69,10 @@ class ProfileProjectList extends Component {
 }
 
 const styles = {
+  container: {
+    marginLeft: 44,
+    marginRight: 44
+  },
   listHeaderContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -85,16 +93,23 @@ const styles = {
     overflow: 'hidden'
   },
   listItemStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: '#666',
     borderBottomWidth: 1,
-    backgroundColor: '#E8F1F2',
-    padding: 12
+    backgroundColor: '#A3CEF1',
+    padding: 8
     
   },
   listItemTextStyle: {
-    fontSize: 14
+    fontSize: 16,
+    marginLeft: 6
+  },
+  bioStyle: {
+    backgroundColor: 'white',
+    padding: 6
   }
 
 }
 
-export default ProfileProjectList;
+export default UserList;

@@ -6,7 +6,7 @@ import { getProjectCollaborators } from '../store/actions/projects';
 
 import Main from '../components/Main';
 import ProjectCard from '../components/ProjectCard';
-import ProfileProjectList from '../components/ProfileProjectList';
+import UserList from '../components/UserList';
 import Loader from '../components/Loader';
 import ErrorMsg from '../components/ErrorMsg';
 
@@ -40,17 +40,17 @@ class ProjectDetailsScreen extends Component {
   render() {
     const { project, collaborators, error, isLoading } = this.props;
     return (
-      <Main>
+      <Main style={{ alignItems: 'stretch' }}>
         <ProjectCard
           {...project}
           style={{ marginTop: 0, marginBottom: 0 }}
           header={false}
         >
 
-        <ProfileProjectList 
+        <UserList
           data={collaborators}
-          type="users"
           header="Collaborators"
+          subHeader="Tap for bio"
           editMode={false}
         />
 

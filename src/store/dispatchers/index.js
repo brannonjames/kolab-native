@@ -7,6 +7,7 @@ import projects from './projects';
 import chat from './chat';
 import projectForm from './projectForm';
 import splash from './splash';
+import camera from './camera';
 
 export default combineReducers({
   auth,
@@ -15,5 +16,6 @@ export default combineReducers({
   projects,
   chat,
   projectForm,
-  splash
+  splash,
+  camera
 });
