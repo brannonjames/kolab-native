@@ -1,36 +1,49 @@
 import React, { Component } from 'react';
-import { Button as RNButton, View, ScrollView } from 'react-native';
+import { Button as RNButton, View, ScrollView, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { loadProjectsCreated, setCurrentProject, loadUserProjects } from '../store/actions/projects';
 import { logoutUser } from '../store/actions/auth';
+import { updateBio } from '../store/actions/user';
 
 import Main from '../components/Main';
 import Button from '../components/Button';
 import ProfileNumbers from '../components/ProfileNumbers';
 import ProfileNumberData from '../components/ProfileNumberData';
 import Avatar from '../components/Avatar';
+import TextArea from '../components/TextArea';
 
 class AccountScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('username') || 'Account',
   });
 
+  state = {
+    bio: ''
+  }
+
   componentDidMount() {
     const { 
       navigation, 
-      username, 
+      username,
+      bio,
       loadProjectsCreated, 
       loadUserProjects 
     } = this.props;
     navigation.setParams({ username });
     loadProjectsCreated();
     loadUserProjects();
+    this.setState({ bio })
   }
 
-  handleProjectPress = project => {
-    const { setCurrentProject, navigation } = this.props;
-    setCurrentProject(project);
-    navigation.navigate('edit_project');
+  handleBioUpdate = async () => {
+    await updateBio(this.state.bio);
+    Alert.alert(
+      'Bio Updated',
+      null,
+      [
+        { title: 'Great!', onPress: () => {}, style: 'cancel' }
+      ]
+    )
   }
 
   logout = async () => {
@@ -71,7 +84,18 @@ class AccountScreen extends Component {
           </ProfileNumbers>
         </View>
 
+        <KeyboardAvoidingView>
+        <TextArea 
+          placeholder="Bio"
+          value={this.state.bio}
+          onChange={bio => this.setState({ bio })}
+        />
+        </KeyboardAvoidingView>
 
+        <Button 
+          title="Update Bio"
+          onPress={this.handleBioUpdate}
+        />
 
         <Button 
           title="Logout"
@@ -87,7 +111,8 @@ class AccountScreen extends Component {
 
 const mapStateToProps = ({ projects, user }) => ({
   username: user.username,
-  avatarUrl: user.avatar_url, 
+  avatarUrl: user.avatar_url,
+  bio: user.bio, 
   projects: projects.created.all,
   numCreated: projects.created.all.length,
   numCollaborating: projects.collaborating.all.length
@@ -97,5 +122,6 @@ export default connect(mapStateToProps, {
   loadProjectsCreated, 
   logoutUser,
   setCurrentProject,
-  loadUserProjects
+  loadUserProjects,
+  updateBio
 })(AccountScreen);

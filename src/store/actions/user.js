@@ -18,3 +18,7 @@ export const getCurrentUser = id => async dispatch => {
     throw new Error(err.message);
   }
 }
+
+export const updateBio = bio => async dispatch => {
+  
+}
