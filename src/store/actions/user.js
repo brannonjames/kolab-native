@@ -20,5 +20,21 @@ export const getCurrentUser = id => async dispatch => {
 }
 
 export const updateBio = bio => async dispatch => {
-  
+  try {
+
+    dispatch({ type: BIO_UPDATE });
+
+    let updatedBio = await apiCall({
+      url: '/users/bio',
+      method: 'put',
+      data: { bio }
+    });
+
+    dispatch({ type: BIO_UPDATE_SUCCESS, payload: updatedBio });
+
+
+  } catch (err) {
+    dispatch({ type: BIO_UPDATE_FAIL, error: err.message });
+    return null;
+  }
 }
