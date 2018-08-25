@@ -24,7 +24,7 @@ class NewProjectScreen extends Component {
     try {
 
       await this.props.createProject(project);
-      this.props.navigation.navigate('account');
+      this.props.navigation.navigate('app');
 
     } catch (err) {
       return false;

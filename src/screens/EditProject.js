@@ -31,7 +31,7 @@ class NewProjectScreen extends Component {
       const { updateProject, navigation } = this.props;
 
       await updateProject(project);
-      navigation.navigate('account');
+      navigation.navigate('app');
 
     } catch (err) {
       return false;
@@ -48,7 +48,7 @@ class NewProjectScreen extends Component {
           try {
             const { deleteProject, navigation } = this.props;
             await deleteProject(project);
-            navigation.navigate('account');
+            navigation.navigate('app');
           } catch (err) {
             return null
           }
