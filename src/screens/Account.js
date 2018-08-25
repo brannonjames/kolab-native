@@ -5,12 +5,12 @@ import { loadProjectsCreated, setCurrentProject, loadUserProjects } from '../sto
 import { logoutUser } from '../store/actions/auth';
 import { updateBio } from '../store/actions/user';
 
+import UpdateBio from '../components/UpdateBio';
 import Main from '../components/Main';
 import Button from '../components/Button';
 import ProfileNumbers from '../components/ProfileNumbers';
 import ProfileNumberData from '../components/ProfileNumberData';
 import Avatar from '../components/Avatar';
-import TextArea from '../components/TextArea';
 
 class AccountScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -58,51 +58,46 @@ class AccountScreen extends Component {
         <ScrollView 
           contentContainerStyle={{ padding: 20 }}
         >
+          <KeyboardAvoidingView behavior="position">
 
-        <View style={{ justifyContent: 'space-around' }}>
+            <View style={{ justifyContent: 'space-around' }}>
 
 
-          <Avatar 
-            size="large"
-            uri={this.props.avatarUrl}
-            style={{ alignSelf: 'center' }}
-          />
+              <Avatar 
+                size="large"
+                uri={this.props.avatarUrl}
+                style={{ alignSelf: 'center' }}
+              />
 
-          <Button 
-            title="New Photo" 
-            onPress={() => this.props.navigation.navigate('camera')} 
-            style={{ padding: 8, alignSelf: 'center' }}
+              <Button 
+                title="New Photo" 
+                onPress={() => this.props.navigation.navigate('camera')} 
+                style={{ padding: 8, alignSelf: 'center' }}
+                />
+            
+            </View>
+
+
+            <View>
+              <ProfileNumbers>
+                <ProfileNumberData data={this.props.numCreated} title="Created" />
+                <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
+              </ProfileNumbers>
+            </View>
+
+            <UpdateBio 
+              bio={this.state.bio}
+              onChange={bio => this.setState({ bio })}
+              handleBioUpdate={this.handleBioUpdate}
             />
-        
-        </View>
-
-
-        <View>
-          <ProfileNumbers>
-            <ProfileNumberData data={this.props.numCreated} title="Created" />
-            <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
-          </ProfileNumbers>
-        </View>
-
-        <KeyboardAvoidingView>
-        <TextArea 
-          placeholder="Bio"
-          value={this.state.bio}
-          onChange={bio => this.setState({ bio })}
-        />
-        </KeyboardAvoidingView>
-
-        <Button 
-          title="Update Bio"
-          onPress={this.handleBioUpdate}
-        />
-
-        <Button 
-          title="Logout"
-          style={{ backgroundColor: '#ff8a82' }}
-          onPress={this.logout}
-        />
-
+          </KeyboardAvoidingView>
+          
+          <Button 
+            title="Logout"
+            style={{ backgroundColor: '#ff8a82' }}
+            onPress={this.logout}
+          />
+          
         </ScrollView>
       </Main>
     );
