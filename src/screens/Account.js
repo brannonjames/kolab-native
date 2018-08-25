@@ -55,50 +55,52 @@ class AccountScreen extends Component {
   render() {
     return (
       <Main>
-        <ScrollView 
-          contentContainerStyle={{ padding: 20 }}
-        >
-          <KeyboardAvoidingView behavior="position">
-
-            <View style={{ justifyContent: 'space-around' }}>
-
-
-              <Avatar 
-                size="large"
-                uri={this.props.avatarUrl}
-                style={{ alignSelf: 'center' }}
-              />
-
-              <Button 
-                title="New Photo" 
-                onPress={() => this.props.navigation.navigate('camera')} 
-                style={{ padding: 8, alignSelf: 'center' }}
-                />
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+          <ScrollView 
+            contentContainerStyle={{ padding: 20 }}
+          >
             
-            </View>
+
+              <View style={{ justifyContent: 'space-around' }}>
 
 
-            <View>
-              <ProfileNumbers>
-                <ProfileNumberData data={this.props.numCreated} title="Created" />
-                <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
-              </ProfileNumbers>
-            </View>
+                <Avatar 
+                  size="large"
+                  uri={this.props.avatarUrl}
+                  style={{ alignSelf: 'center' }}
+                />
 
-            <UpdateBio 
-              bio={this.state.bio}
-              onChange={bio => this.setState({ bio })}
-              handleBioUpdate={this.handleBioUpdate}
+                <Button 
+                  title="New Photo" 
+                  onPress={() => this.props.navigation.navigate('camera')} 
+                  style={{ padding: 8, alignSelf: 'center' }}
+                  />
+              
+              </View>
+
+
+              <View>
+                <ProfileNumbers>
+                  <ProfileNumberData data={this.props.numCreated} title="Created" />
+                  <ProfileNumberData data={this.props.numCollaborating} title="Collaborating" />
+                </ProfileNumbers>
+              </View>
+
+              <UpdateBio 
+                bio={this.state.bio}
+                onChange={bio => this.setState({ bio })}
+                handleBioUpdate={this.handleBioUpdate}
+              />
+            
+
+            <Button 
+              title="Logout"
+              style={{ backgroundColor: '#ff8a82' }}
+              onPress={this.logout}
             />
-          </KeyboardAvoidingView>
-
-          <Button 
-            title="Logout"
-            style={{ backgroundColor: '#ff8a82' }}
-            onPress={this.logout}
-          />
-          
-        </ScrollView>
+            
+          </ScrollView>
+        </KeyboardAvoidingView>
       </Main>
     );
   }

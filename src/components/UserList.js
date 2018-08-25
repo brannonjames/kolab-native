@@ -70,8 +70,8 @@ class UserList extends Component {
 
 const styles = {
   container: {
-    marginLeft: 44,
-    marginRight: 44
+    marginLeft: 22,
+    marginRight: 22
   },
   listHeaderContainerStyle: {
     flexDirection: 'row',
