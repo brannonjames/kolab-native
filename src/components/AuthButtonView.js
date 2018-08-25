@@ -6,7 +6,11 @@ import Button from './Button';
 export default ({ authType, onSubmit, toggleAuth, isLoading }) => {
   return (
     <View style={styles.container}>
-      <Button onPress={onSubmit} title={authType}>
+      <Button 
+        onPress={onSubmit} 
+        title={authType} 
+        style={{ marginLeft: 0, marginRight: 0 }}
+      >
         { isLoading &&
           <Loader />
         }
