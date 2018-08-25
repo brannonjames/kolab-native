@@ -36,7 +36,7 @@ class AccountScreen extends Component {
   }
 
   handleBioUpdate = async () => {
-    await updateBio(this.state.bio);
+    await this.props.updateBio(this.state.bio);
     Alert.alert(
       'Bio Updated',
       null,
@@ -91,7 +91,7 @@ class AccountScreen extends Component {
               handleBioUpdate={this.handleBioUpdate}
             />
           </KeyboardAvoidingView>
-          
+
           <Button 
             title="Logout"
             style={{ backgroundColor: '#ff8a82' }}

@@ -1,5 +1,12 @@
 import apiCall from '../../services/apiCall';
-import { USER_LOGIN_SUCCESS } from './types';
+import {
+  USER_LOGIN_SUCCESS,
+  
+  BIO_UPDATE,
+  BIO_UPDATE_SUCCESS,
+  BIO_UPDATE_FAIL
+
+} from './types';
 
 export const getCurrentUser = id => async dispatch => {
   try {
@@ -24,14 +31,13 @@ export const updateBio = bio => async dispatch => {
 
     dispatch({ type: BIO_UPDATE });
 
-    let updatedBio = await apiCall({
+    let updatedUser = await apiCall({
       url: '/users/bio',
       method: 'put',
       data: { bio }
     });
 
-    dispatch({ type: BIO_UPDATE_SUCCESS, payload: updatedBio });
-
+    dispatch({ type: BIO_UPDATE_SUCCESS, payload: updatedUser });
 
   } catch (err) {
     dispatch({ type: BIO_UPDATE_FAIL, error: err.message });

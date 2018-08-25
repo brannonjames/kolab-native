@@ -21,6 +21,10 @@ export const SAVE_AVATAR = 'SAVE_AVATAR';
 export const SAVE_AVATAR_SUCCESS = 'SAVE_AVATAR_SUCCESS';
 export const SAVE_AVATAR_FAIL = 'SAVE_AVATAR_FAIL';
 
+export const BIO_UPDATE = 'BIO_UPDATE';
+export const BIO_UPDATE_SUCCESS = 'BIO_UPDATE_SUCCESS';
+export const BIO_UPDATE_FAIL = 'BIO_UPDATE_FAIL';
+
 // swipe screen project action types
 
 export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT';
