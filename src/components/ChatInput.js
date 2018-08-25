@@ -2,21 +2,33 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import SendButton from './SendButton';
 
-const ChatInput = ({ onChange, message, onSubmit }) => {
-  return (
-    <View style={styles.containerStyle}>
-      
-        <TextInput 
-          style={styles.inputStyle}
-          onChangeText={onChange}
-          value={message}
-          multiline
-        />
+class ChatInput extends Component  {
 
-        <SendButton onPress={onSubmit} />
-      
-    </View>
-  );
+  state = { message: '' }
+
+  render() {
+    const { onSubmit } = this.props;
+
+    return (
+      <View style={styles.containerStyle}>
+        
+          <TextInput 
+            style={styles.inputStyle}
+            onChangeText={message => this.setState({ message })}
+            value={this.state.message}
+            multiline
+          />
+
+          <SendButton 
+            onPress={() => {
+              onSubmit(this.state.message);
+              this.setState({ message: '' });
+            }} 
+          />
+        
+      </View>
+    );
+  }
 }
 
 const styles = {

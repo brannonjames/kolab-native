@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, Button } from 'react-native';
+import { KeyboardAvoidingView, Button, View } from 'react-native';
 import { connect } from 'react-redux';
 import { openChatSocket, loadInitialMessages, sendMessage } from '../store/actions/chat';
 import ChatInput from '../components/ChatInput';
@@ -15,8 +15,6 @@ class Chat extends React.Component {
     headerRight: <Button title="Info" onPress={() => navigation.navigate('project_details')} />,
     headerLeft: <Button title="Projects" onPress={() => navigation.navigate('projects')} />
   });
-
-  state = { message: '' }
 
   async componentDidMount(){
     const { currentProject, openChatSocket, navigation, loadInitialMessages } = this.props;
@@ -37,15 +35,10 @@ class Chat extends React.Component {
     socket.removeAllListeners();
   }
 
-  handleSubmit = () => {
-    if (this.state.message.length > 0) {
-      this.props.sendMessage(this.state.message);
-      this.setState({ message: '' });
+  handleSubmit = message => {
+    if (message.length > 0) {
+      this.props.sendMessage(message);
     }
-  }
-
-  handleChange = message => {
-    this.setState({ message });
   }
 
   render(){
@@ -69,17 +62,17 @@ class Chat extends React.Component {
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={64}  style={{ flex: 1 }} >
         <Main style={{ paddingLeft: 0, paddingRight: 0 }}>
 
+          <View style={{ flex: 1 }}>
           <ChatList 
             messages={messages}
             handleDelete={this.handleDelete}
             currentUserId={this.props.currentUserId}
           />
+          </View>
           
           
           <ChatInput
-            onChange={this.handleChange} 
             onSubmit={this.handleSubmit}
-            message={this.state.message}
           />
 
         </Main>

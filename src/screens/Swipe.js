@@ -48,7 +48,7 @@ class SwipeScreen extends Component {
     // ProjectDeck is where the magic happens, can you feel it? Can you feel the magic?
     return (
       <Main>
-        <ProjectDeck 
+        <ProjectDeck
           data={projects} 
           onSwipeLeft={this.handleSwipeLeft}
           onSwipeRight={this.handleSwipeRight}

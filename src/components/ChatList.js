@@ -21,7 +21,7 @@ class ChatList extends Component {
       <View style={styles.container}>
         <FlatList 
           inverted
-          data={this.props.messages.reverse()}
+          data={this.props.messages}
           renderItem={this.renderChatMessage}
           keyExtractor={item => String(item.id)}
         />
